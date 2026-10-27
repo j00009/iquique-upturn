@@ -1,0 +1,15 @@
+:host {
+  display: block;
+  margin-top: var(--espacio-xl);
+}
+
+.reiniciar {
+  border-top: 1px dashed var(--color-borde);
+  padding-top: var(--espacio-md);
+}
+
+p {
+  color: var(--color-texto-variante);
+  font-size: var(--texto-sm);
+  margin: 0 0 var(--espacio-sm);
+}

@@ -1,0 +1,61 @@
+<section class="busqueda">
+  <h1>Consulta tu permiso de circulación</h1>
+  <p class="busqueda__intro">Ingresa la patente de tu vehículo para revisar el estado de su permiso.</p>
+
+  <form class="busqueda__form" [formGroup]="form" (ngSubmit)="buscar()" novalidate>
+    <label for="patente">Patente</label>
+    <div class="busqueda__fila">
+      <input id="patente" type="text" formControlName="patente" maxlength="6" placeholder="Ej: KJBH45"
+             autocomplete="off" [attr.aria-invalid]="patenteInvalida()" aria-describedby="error-patente" />
+      <button type="submit">Consultar</button>
+    </div>
+    @if (patenteInvalida()) {
+      <p id="error-patente" class="busqueda__error" role="alert">
+        @if (form.controls.patente.hasError('required')) {
+          Ingresa una patente.
+        } @else {
+          Formato inválido. Usa 4 letras y 2 números (ABCD12) o 2 letras y 4 números (AB1234).
+        }
+      </p>
+    }
+  </form>
+
+  @if (buscado()) {
+    @if (resultado(); as r) {
+      <article class="resultado">
+        <header class="resultado__cabecera">
+          <h2>{{ r.vehiculo.patente }}</h2>
+          <span class="estado" [class]="'estado estado--' + r.permiso.estado">{{ r.permiso.estado }}</span>
+        </header>
+
+        <dl class="resultado__datos">
+          <div><dt>Vehículo</dt><dd>{{ r.vehiculo.marca }} {{ r.vehiculo.modelo }} {{ r.vehiculo.anio }}</dd></div>
+          <div><dt>Municipalidad</dt><dd>{{ r.permiso.municipalidad }}</dd></div>
+          <div><dt>Monto</dt><dd>{{ r.permiso.monto | currency: 'CLP' : 'symbol' : '1.0-0' }}</dd></div>
+          <div><dt>Vigencia</dt><dd>{{ r.permiso.vigencia | date: 'dd/MM/yyyy' }}</dd></div>
+        </dl>
+
+        @switch (r.permiso.estado) {
+          @case ('pagado') {
+            <p class="aviso aviso--ok" role="status">Este permiso ya está pagado. No requiere ninguna acción.</p>
+          }
+          @case ('incompleto') {
+            <p class="aviso aviso--alerta" role="status">
+              Faltan datos del propietario. Debes completarlos para poder pagar.
+            </p>
+          }
+          @default {
+            <p class="aviso aviso--alerta" role="status">Este permiso está impago y puedes pagarlo en línea.</p>
+          }
+        }
+
+        <a class="boton" [routerLink]="['/permiso', r.permiso.patente]">Ver antecedentes</a>
+      </article>
+    } @else {
+      <p class="aviso aviso--error" role="alert">
+        No encontramos ningún permiso asociado a la patente <strong>{{ patenteConsultada() }}</strong>.
+        Revisa que esté bien escrita.
+      </p>
+    }
+  }
+</section>

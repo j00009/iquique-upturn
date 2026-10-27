@@ -1,0 +1,34 @@
+:host { display: block; }
+.feriado {
+  max-width: 1200px;
+  margin: -1.5rem auto 0;
+  background: #fff;
+  border-radius: var(--radio-lg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: var(--espacio-md) var(--espacio-lg);
+  display: flex;
+  align-items: center;
+  gap: var(--espacio-md);
+  position: relative;
+  z-index: 10;
+}
+
+.feriado__icono {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 999px;
+  background: var(--color-secundario-container);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feriado__titulo {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-texto-variante);
+  margin: 0 0 0.2rem;
+}

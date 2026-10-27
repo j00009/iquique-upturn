@@ -1,0 +1,113 @@
+:host { display: block; }
+.promo-app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--espacio-xl) var(--espacio-md);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-lg);
+  align-items: center;
+  background: var(--color-superficie-baja);
+  border-radius: var(--radio-lg);
+}
+
+@media (min-width: 900px) {
+  .promo-app {
+    grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+    padding: var(--espacio-xl);
+  }
+}
+
+.promo-app__logo {
+  height: clamp(5rem, 9vw, 7rem);
+  width: auto;
+  margin-bottom: var(--espacio-sm);
+}
+
+.promo-app__texto h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: var(--color-primario);
+  margin: 0 0 var(--espacio-sm);
+}
+
+.promo-app__texto p {
+  color: var(--color-texto-variante);
+  max-width: 45ch;
+  margin: 0 0 0.75rem;
+}
+
+.promo-app__destacado {
+  font-weight: 600;
+  color: var(--color-texto);
+}
+
+.promo-app__tiendas {
+  margin-top: var(--espacio-md);
+}
+
+.promo-app__tiendas-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.6rem;
+}
+.promo-app__badges {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.promo-app__badge-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--color-primario);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radio-md);
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.promo-app__badge-btn:hover {
+  background: var(--color-primario-container);
+}
+
+.promo-app__badge-btn:focus-visible {
+  outline: 3px solid var(--color-secundario-container);
+  outline-offset: 2px;
+}
+
+.promo-app__badge-btn i {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.promo-app__badge-texto {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.promo-app__badge-texto small {
+  font-size: 0.65rem;
+  color: #cfe9e5;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.promo-app__badge-texto strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.promo-app__imagen img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radio-lg);
+  object-fit: cover;
+}

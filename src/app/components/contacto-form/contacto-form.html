@@ -1,0 +1,70 @@
+<section class="contacto" aria-labelledby="contacto-titulo">
+    <div class="contacto__contenedor">
+      <div class="contacto__intro">
+        <h2 id="contacto-titulo">¿Tienes una consulta, reclamo o sugerencia?</h2>
+        <p>
+          Escríbenos directamente a la Oficina de Información, Reclamos y Sugerencias (OIRS).
+          Te responderemos al correo que nos indiques.
+        </p>
+      </div>
+      <form class="contacto__form" [formGroup]="contactForm" (ngSubmit)="onContactSubmit()" novalidate>
+        @if (contactEnviado()) {
+          <div class="contacto__aviso contacto__aviso--exito" role="status">
+            Tu mensaje fue enviado correctamente. Gracias por escribirnos.
+          </div>
+        }
+        @if (contactConError()) {
+          <div class="contacto__aviso contacto__aviso--error" role="alert">
+            Revisa los campos marcados: falta información o tiene un formato inválido.
+          </div>
+        }
+        <div class="campo">
+          <label for="contacto-nombre">Nombre completo</label>
+          <input id="contacto-nombre" type="text" formControlName="nombre" [attr.aria-invalid]="campoInvalido('nombre')"
+                 aria-describedby="error-nombre" />
+          @if (campoInvalido('nombre')) {
+            <p id="error-nombre" class="campo__error">
+              Ingresa tu nombre completo (mínimo 3 caracteres).
+            </p>
+          }
+        </div>
+        <div class="campo">
+          <label for="contacto-email">Correo electrónico</label>
+          <input id="contacto-email" type="email" formControlName="email" [attr.aria-invalid]="campoInvalido('email')"
+                 aria-describedby="error-email" />
+          @if (campoInvalido('email')) {
+            <p id="error-email" class="campo__error">
+              Ingresa un correo electrónico válido.
+            </p>
+          }
+        </div>
+        <div class="campo">
+          <label for="contacto-asunto">Asunto</label>
+          <select id="contacto-asunto" formControlName="asunto" [attr.aria-invalid]="campoInvalido('asunto')"
+                  aria-describedby="error-asunto">
+            <option value="" disabled selected>Selecciona un tema</option>
+            <option value="tramites">Trámites y pagos</option>
+            <option value="reclamo">Reclamo</option>
+            <option value="sugerencia">Sugerencia</option>
+            <option value="otro">Otro</option>
+          </select>
+          @if (campoInvalido('asunto')) {
+            <p id="error-asunto" class="campo__error">
+              Selecciona un asunto.
+            </p>
+          }
+        </div>
+        <div class="campo campo--ancho">
+          <label for="contacto-mensaje">Mensaje</label>
+          <textarea id="contacto-mensaje" rows="4" formControlName="mensaje"
+                    [attr.aria-invalid]="campoInvalido('mensaje')" aria-describedby="error-mensaje"></textarea>
+          @if (campoInvalido('mensaje')) {
+            <p id="error-mensaje" class="campo__error">
+              Cuéntanos tu consulta con al menos 10 caracteres.
+            </p>
+          }
+        </div>
+        <button type="submit" class="contacto__boton">Enviar mensaje</button>
+      </form>
+    </div>
+  </section>

@@ -1,0 +1,228 @@
+:root {
+  --color-primario: #0a2e36;
+  --color-primario-container: #123f49;
+  --color-secundario: #0fb8a6;
+  --color-secundario-container: #0ea394;
+  --color-terciario: #c97a3d;
+  --color-terciario-container: #f0d9bc;
+  --color-error: #ba1a1a;
+  --color-superficie: #faf7f2;
+  --color-superficie-baja: #e7e0d1;
+  --color-superficie-alta: #e6ded0;
+  --color-texto: #1c2b2e;
+  --color-texto-variante: #4a5a5c;
+  --color-borde: #d3cabb;
+  --color-sobre-primario: #ffffff;
+  --color-primario-suave: #d7ece8;
+  --color-secundario-suave: #d5f2ed;
+  --color-terciario-suave: #f7ead9;
+
+  --radio-md: 0.75rem;
+  --radio-lg: 1rem;
+  --espacio-sm: 0.75rem;
+  --espacio-md: 1rem;
+  --espacio-lg: 1.5rem;
+  --espacio-xl: 2.5rem;
+
+  --texto-xs: 12px;    /* etiquetas pequeñas, badges */
+  --texto-sm: 13px;    /* metadatos, footers de card */
+  --texto-base: 15px;  /* texto de párrafo estándar */
+  --texto-md: 16px;    /* subtítulos, h3 de card */
+  --texto-lg: 20px;    /* h3 destacados */
+  --texto-xl: 24px;    /* h2 secundarios */
+  --texto-2xl: 28px;   /* h2 principal de sección */
+}
+
+html {
+  scroll-padding-top: 5rem; /* los anclas (#tramites-titulo) no quedan tapados por el header fijo */
+  -webkit-text-size-adjust: 100%;
+}
+
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.site-main {
+  flex: 1 0 auto;
+}
+
+app-footer {
+  flex-shrink: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background: var(--color-superficie);
+  color: var(--color-texto);
+}
+
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-secundario);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 var(--radio-md) 0;
+  z-index: 100;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-secundario-container);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  display: inline-block;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga";
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 24;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+/* Componentes compartidos de las páginas del permiso */
+
+.pagina {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: var(--espacio-xl) var(--espacio-md);
+}
+.pagina--ancha {
+  max-width: 1000px;
+}
+.pagina h1 {
+  color: var(--color-primario);
+  font-size: var(--texto-2xl);
+  margin: 0 0 var(--espacio-sm);
+}
+.pagina__intro {
+  color: var(--color-texto-variante);
+  margin: 0 0 var(--espacio-lg);
+}
+
+.boton {
+  display: inline-block;
+  background: var(--color-primario);
+  color: var(--color-sobre-primario);
+  border: 1px solid var(--color-primario);
+  border-radius: var(--radio-md);
+  padding: 0.75rem 1.5rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.boton--secundario {
+  background: transparent;
+  color: var(--color-primario);
+}
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espacio-sm);
+  margin-top: var(--espacio-lg);
+}
+
+.aviso {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio-md);
+  margin: var(--espacio-md) 0;
+}
+.aviso--ok { background: var(--color-secundario-suave); }
+.aviso--alerta { background: var(--color-terciario-suave); }
+.aviso--error { background: #fde7e7; color: var(--color-error); }
+
+.campo__error {
+  color: var(--color-error);
+  font-size: var(--texto-sm);
+  margin: 0.4rem 0 0;
+}
+
+.estado {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: var(--texto-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.estado--pagado,
+.estado--aprobado { background: var(--color-secundario-suave); color: var(--color-primario); }
+.estado--impago { background: var(--color-terciario-suave); color: var(--color-terciario); }
+.estado--incompleto { background: var(--color-superficie-alta); color: var(--color-texto-variante); }
+.estado--rechazado { background: #fde7e7; color: var(--color-error); }
+
+/* Al imprimir el comprobante se ocultan el menú, el pie y los botones */
+@media print {
+  app-navbar,
+  app-footer,
+  .no-imprimir {
+    display: none !important;
+  }
+}
+@media (max-width: 600px) {
+  .pagina {
+    padding: var(--espacio-lg) var(--espacio-md);
+  }
+
+  .acciones .boton {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+}
+body {
+  overflow-x: clip;
+}

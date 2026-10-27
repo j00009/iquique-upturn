@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: var(--espacio-md) 0;
+  padding: var(--espacio-md);
+  background: var(--color-primario-suave);
+  border-radius: var(--radio-md);
+  font-size: var(--texto-lg);
+}
+
+.confirmacion {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.confirmacion input {
+  margin-top: 0.25rem;
+}

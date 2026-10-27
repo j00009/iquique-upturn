@@ -1,0 +1,41 @@
+<app-carrusel />
+<app-hero-buscador (buscar)="terminoBusqueda.set($event)" />
+<app-feriado-widget />
+
+<!-- TRÁMITES FRECUENTES (se filtran en vivo desde el buscador) -->
+<section class="tramites">
+  <div class="section-header">
+    <div>
+      <div class="section-label">
+        <span class="material-symbols-outlined" aria-hidden="true">domain</span>
+        <span>Gestión Digital Ciudadana</span>
+      </div>
+      <h2 id="tramites-titulo">Trámites Más Frecuentes</h2>
+    </div>
+    <a href="#" class="catalogo-link">
+      Ver catálogo completo de trámites
+      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+    </a>
+  </div>
+  <div class="tramites-grid">
+    @if (tramitesFiltrados().length === 0) {
+      <p class="tramites__sin-resultados" role="status">
+        No encontramos trámites que coincidan con tu búsqueda.
+      </p>
+    }
+    @for (tramite of tramitesFiltrados(); track tramite.id) {
+      <app-tramite-card [tramite]="tramite" />
+    }
+  </div>
+</section>
+
+<section class="servicios">
+  <div class="servicios-grid">
+    <app-seguridad />
+    <app-farmacias-turno />
+  </div>
+</section>
+
+<app-noticias />
+<app-promo-app />
+<app-contacto-form />

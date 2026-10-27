@@ -1,0 +1,20 @@
+<article class="tramite-card" [class.blue]="tramite().color === 'blue'" [class.orange]="tramite().color === 'orange'">
+  <div class="card-top"></div>
+  <div class="card-content">
+    <div class="card-header">
+      <div class="icon" [class.blue-icon]="tramite().color === 'blue'" [class.orange-icon]="tramite().color === 'orange'">
+        <span class="material-symbols-outlined" aria-hidden="true">{{ tramite().icono }}</span>
+      </div>
+      <span class="badge" [class]="'badge ' + tramite().badgeClase">{{ tramite().badgeTexto }}</span>
+    </div>
+    <h3>{{ tramite().titulo }}</h3>
+    <p>{{ tramite().descripcion }}</p>
+  </div>
+  <div class="card-footer">
+    <span class="footer-info" [class.blue-text]="tramite().infoDestacada">
+      <span class="material-symbols-outlined" aria-hidden="true">{{ tramite().infoIcono }}</span>
+      {{ tramite().infoTexto }}
+    </span>
+    <button type="button" (click)="abrir()" [class.dark-button]="tramite().botonOscuro">{{ tramite().botonTexto }}</button>
+  </div>
+</article>

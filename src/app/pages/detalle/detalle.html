@@ -1,0 +1,49 @@
+<section class="pagina">
+  <h1>Antecedentes del permiso</h1>
+
+  @if (antecedentes; as a) {
+    <app-resumen-permiso [antecedentes]="a" />
+
+    @switch (a.permiso.estado) {
+      @case ('pagado') {
+        <p class="aviso aviso--ok" role="status">
+          Este permiso ya está pagado y vigente hasta el {{ a.permiso.vigencia | date: 'dd/MM/yyyy' }}.
+        </p>
+      }
+      @case ('incompleto') {
+        <p class="aviso aviso--alerta" role="status">
+          Faltan datos del propietario (correo o teléfono). Complétalos para poder pagar.
+        </p>
+      }
+      @default {
+        <p class="aviso aviso--alerta" role="status">Este permiso está impago. Puedes pagarlo en línea.</p>
+      }
+    }
+
+    <div class="acciones">
+      @switch (a.permiso.estado) {
+        @case ('pagado') {
+          @if (pago) {
+            <a class="boton" [routerLink]="['/comprobante', pago.id]">Ver comprobante</a>
+          }
+          <a class="boton boton--secundario" routerLink="/historial">Ver historial</a>
+        }
+        @case ('incompleto') {
+          <a class="boton" [routerLink]="['/permiso', a.permiso.patente, 'datos']">Completar datos</a>
+        }
+        @default {
+          <a class="boton" [routerLink]="['/pago', a.permiso.id]">Pagar permiso</a>
+          <a class="boton boton--secundario" [routerLink]="['/permiso', a.permiso.patente, 'datos']">Editar datos</a>
+        }
+      }
+      <a class="boton boton--secundario" routerLink="/busqueda">Nueva consulta</a>
+    </div>
+  } @else {
+    <p class="aviso aviso--error" role="alert">
+      No encontramos ningún permiso para la patente <strong>{{ patente }}</strong>.
+    </p>
+    <div class="acciones">
+      <a class="boton" routerLink="/busqueda">Volver a la búsqueda</a>
+    </div>
+  }
+</section>

@@ -1,0 +1,17 @@
+<section class="feriado" aria-live="polite" aria-labelledby="feriado-titulo">
+  <div class="feriado__icono" aria-hidden="true">
+    <span class="material-symbols-outlined" aria-hidden="true">event</span>
+  </div>
+  <div class="feriado__texto">
+    <h2 id="feriado-titulo" class="feriado__titulo">Próximo feriado</h2>
+    @if (cargandoFeriado()) {
+      <p>Consultando feriados...</p>
+    } @else if (errorFeriado()) {
+      <p>No se pudo obtener la información de feriados en este momento.</p>
+    } @else if (proximoFeriado(); as feriado) {
+      <p>{{ feriado.nombre }} — {{ feriado.fecha | date: 'longDate' : '' : 'es-CL' }}</p>
+    } @else {
+      <p>No quedan feriados registrados para este año.</p>
+    }
+  </div>
+</section>

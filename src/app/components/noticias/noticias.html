@@ -1,0 +1,27 @@
+<section class="noticias" aria-labelledby="noticias-titulo">
+    <div class="noticias__encabezado">
+      <h2 id="noticias-titulo">Noticias y Actualidad Municipal</h2>
+      <a href="#" class="noticias__ver-todo">Todas las noticias</a>
+    </div>
+    <ul class="noticias__grid">
+      @for (noticia of noticias; track noticia.titulo) {
+        <li>
+          <article class="noticia-card">
+            <div class="noticia-card__imagen-wrap">
+              <img [src]="noticia.imagenUrl" [alt]="noticia.imagenAlt" class="noticia-card__imagen" loading="lazy" />
+              <span class="noticia-card__etiqueta">{{ noticia.categoria }}</span>
+            </div>
+            <div class="noticia-card__cuerpo">
+              <time class="noticia-card__fecha">{{ noticia.fecha }}</time>
+              <h3 class="noticia-card__titulo">{{ noticia.titulo }}</h3>
+              <p class="noticia-card__resumen">{{ noticia.resumen }}</p>
+              <a [href]="noticia.link" class="noticia-card__link">
+                Leer noticia completa
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        </li>
+      }
+    </ul>
+  </section>

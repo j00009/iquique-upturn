@@ -1,0 +1,121 @@
+:host { display: block; }
+.hero {
+  background: linear-gradient(180deg, var(--color-primario) 0%, #0a1e38 100%);
+  color: #fff;
+  padding: var(--espacio-lg) var(--espacio-md);
+}
+
+.hero__grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-md);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .hero__grid {
+    grid-template-columns: 45% 1fr;
+    gap: var(--espacio-lg);
+  }
+}
+
+.hero__titulo {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.4rem;
+}
+
+.hero__bajada {
+  color: #d2e4ff;
+  font-size: 1rem;
+  margin: 0;
+  max-width: 40ch;
+}
+
+.hero__accion {
+  width: 100%;
+}
+
+.buscador__label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  color: #d2e4ff;
+  font-size: 0.9rem;
+}
+
+.buscador__caja {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: #fff;
+  padding: 0.5rem;
+  border-radius: var(--radio-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.buscador__input {
+  border: none;
+  outline: none;
+  padding: 0.65rem;
+  font-size: 1rem;
+  color: var(--color-texto);
+}
+
+.buscador__boton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--color-secundario);
+  color: #fff;
+  border: none;
+  border-radius: var(--radio-md);
+  padding: 0.65rem 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.buscador__boton:hover {
+  background: var(--color-secundario-container);
+}
+
+@media (min-width: 640px) {
+  .buscador__caja {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .buscador__input {
+    flex: 1;
+  }
+}
+
+.buscador__sugerencias {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.buscador__sugerencias a {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.12);
+  color: #d2e4ff;
+  font-size: 0.8rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  text-decoration: none;
+}
+
+.buscador__sugerencias a:hover,
+.buscador__sugerencias a:focus-visible {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}

@@ -1,0 +1,34 @@
+<section class="promo-app" aria-labelledby="promo-app-titulo">
+    <div class="promo-app__texto">
+      <img src="img/miquique.png" alt="Logo de la aplicación oficial de la Municipalidad de Iquique"
+           class="promo-app__logo" />
+      <h2 id="promo-app-titulo">Descarga la app gratis desde tu celular</h2>
+      <p>
+        Esta aplicación impulsa la innovación social dentro de la ciudad, fortaleciendo
+        el comercio local, las actividades culturales y los servicios municipales.
+      </p>
+      <p class="promo-app__destacado">
+        Te invitamos a revisar los beneficios que la app tiene para ti.
+      </p>
+      <div class="promo-app__tiendas">
+        <span class="promo-app__tiendas-label">Descarga tu aplicación</span>
+        <ul class="promo-app__badges">
+          @for (tienda of tiendasApp; track tienda) {
+            <li>
+              <a [href]="tienda.url" target="_blank" rel="noopener noreferrer" class="promo-app__badge-btn">
+                <i [class]="tienda.icono" aria-hidden="true"></i>
+                <span class="promo-app__badge-texto">
+                  <small>{{ tienda.textoSuperior }}</small>
+                  <strong>{{ tienda.textoInferior }}</strong>
+                </span>
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+    <div class="promo-app__imagen">
+      <img src="img/bg-sosafe.jpg"
+           alt="Persona sosteniendo un teléfono con la aplicación municipal abierta, mostrando un código QR de tarjeta vecinal" />
+    </div>
+  </section>

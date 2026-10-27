@@ -1,0 +1,20 @@
+@let a = antecedentes();
+<article class="resumen">
+  <header class="resumen__cabecera">
+    <h2>{{ a.vehiculo.patente }}</h2>
+    <span [class]="'estado estado--' + a.permiso.estado">{{ a.permiso.estado }}</span>
+  </header>
+
+  <dl class="resumen__datos">
+    <div><dt>Vehículo</dt><dd>{{ a.vehiculo.marca }} {{ a.vehiculo.modelo }} {{ a.vehiculo.anio }}</dd></div>
+    <div><dt>Tipo</dt><dd>{{ a.vehiculo.tipo }}</dd></div>
+    <div><dt>Propietario</dt><dd>{{ a.propietario?.nombre ?? 'Sin registrar' }}</dd></div>
+    <div><dt>RUT</dt><dd>{{ a.vehiculo.propietarioRut }}</dd></div>
+    <div><dt>Correo</dt><dd>{{ a.propietario?.email ?? 'Sin registrar' }}</dd></div>
+    <div><dt>Teléfono</dt><dd>{{ a.propietario?.telefono ?? 'Sin registrar' }}</dd></div>
+    <div><dt>Municipalidad</dt><dd>{{ a.permiso.municipalidad }}</dd></div>
+    <div><dt>Año del permiso</dt><dd>{{ a.permiso.anio }}</dd></div>
+    <div><dt>Monto</dt><dd>{{ a.permiso.monto | currency: 'CLP' : 'symbol' : '1.0-0' }}</dd></div>
+    <div><dt>Vigencia</dt><dd>{{ a.permiso.vigencia | date: 'dd/MM/yyyy' }}</dd></div>
+  </dl>
+</article>

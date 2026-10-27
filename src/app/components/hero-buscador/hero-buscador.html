@@ -1,0 +1,33 @@
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="hero__grid">
+      <div class="hero__marca">
+        <h1 id="hero-titulo" class="hero__titulo">Tierra de Campeones</h1>
+        <p class="hero__bajada">
+          Trámites y servicios municipales en línea para la comunidad de Iquique.
+        </p>
+      </div>
+
+      <div class="hero__accion">
+        <form class="buscador" [formGroup]="searchForm" (ngSubmit)="onBuscarSubmit()" role="search">
+          <label for="buscador-input" class="buscador__label">
+            ¿Qué trámite necesitas hoy?
+          </label>
+          <div class="buscador__caja">
+            <span class="material-symbols-outlined" aria-hidden="true">search</span>
+            <input id="buscador-input" type="search" formControlName="query"
+                   placeholder="Ej: Licencia de conducir, pago de aseo..." class="buscador__input" />
+            <button type="submit" class="buscador__boton">
+              Buscar
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
+            </button>
+          </div>
+
+          <ul class="buscador__sugerencias">
+            <li><a href="#tramites-titulo">Permiso de Circulación</a></li>
+            <li><a href="#tramites-titulo">Licencia de Conducir</a></li>
+            <li><a href="#tramites-titulo">Patentes</a></li>
+          </ul>
+        </form>
+      </div>
+    </div>
+  </section>

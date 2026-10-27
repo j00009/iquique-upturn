@@ -1,0 +1,59 @@
+<section class="pagina">
+  <h1>Completar datos del propietario</h1>
+
+  @if (antecedentes; as a) {
+    @if (a.permiso.estado === 'pagado') {
+      <p class="aviso aviso--ok" role="status">Este permiso ya está pagado, no necesitas actualizar datos.</p>
+      <div class="acciones">
+        <a class="boton" [routerLink]="['/permiso', patente]">Volver al detalle</a>
+      </div>
+    } @else {
+      <p class="pagina__intro">
+        Vehículo {{ a.vehiculo.patente }} ({{ a.vehiculo.marca }} {{ a.vehiculo.modelo }}).
+        RUT del propietario: {{ a.vehiculo.propietarioRut }}.
+      </p>
+
+      <form [formGroup]="form" (ngSubmit)="guardar()" novalidate>
+        <div class="campo">
+          <label for="nombre">Nombre completo</label>
+          <input id="nombre" type="text" formControlName="nombre" autocomplete="name"
+                 [attr.aria-invalid]="mensajeError('nombre') !== null" aria-describedby="error-nombre" />
+          @if (mensajeError('nombre'); as msg) {
+            <p id="error-nombre" class="campo__error" role="alert">{{ msg }}</p>
+          }
+        </div>
+
+        <div class="campo">
+          <label for="email">Correo electrónico</label>
+          <input id="email" type="email" formControlName="email" autocomplete="email"
+                 [attr.aria-invalid]="mensajeError('email') !== null" aria-describedby="error-email" />
+          @if (mensajeError('email'); as msg) {
+            <p id="error-email" class="campo__error" role="alert">{{ msg }}</p>
+          }
+        </div>
+
+        <div class="campo">
+          <label for="telefono">Teléfono celular</label>
+          <input id="telefono" type="tel" formControlName="telefono" autocomplete="tel"
+                 placeholder="+56 9 1234 5678"
+                 [attr.aria-invalid]="mensajeError('telefono') !== null" aria-describedby="error-telefono" />
+          @if (mensajeError('telefono'); as msg) {
+            <p id="error-telefono" class="campo__error" role="alert">{{ msg }}</p>
+          }
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="boton">Guardar y continuar</button>
+          <a class="boton boton--secundario" [routerLink]="['/permiso', patente]">Cancelar</a>
+        </div>
+      </form>
+    }
+  } @else {
+    <p class="aviso aviso--error" role="alert">
+      No encontramos ningún permiso para la patente <strong>{{ patente }}</strong>.
+    </p>
+    <div class="acciones">
+      <a class="boton" routerLink="/busqueda">Volver a la búsqueda</a>
+    </div>
+  }
+</section>

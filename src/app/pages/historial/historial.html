@@ -1,0 +1,48 @@
+<section class="pagina pagina--ancha">
+  <h1>Historial de pagos</h1>
+  <p class="pagina__intro">Pagos realizados, del más reciente al más antiguo.</p>
+
+  @if (listado().length > 0) {
+    <div class="tabla-contenedor">
+      <table>
+        <caption class="sr-only">Pagos realizados</caption>
+        <thead>
+          <tr>
+            <th scope="col">Comprobante</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Patente</th>
+            <th scope="col">Municipalidad</th>
+            <th scope="col" class="num">Monto</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (p of listado(); track p.id) {
+            <tr>
+              <td><a [routerLink]="['/comprobante', p.id]">{{ p.id }}</a></td>
+              <td>{{ p.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ p.patente }}</td>
+              <td>{{ p.municipalidad }}</td>
+              <td class="num">{{ p.monto | currency: 'CLP' : 'symbol' : '1.0-0' }}</td>
+              <td><span [class]="'estado estado--' + p.estado">{{ p.estado }}</span></td>
+            </tr>
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="4">Total pagado</td>
+            <td class="num">{{ total() | currency: 'CLP' : 'symbol' : '1.0-0' }}</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  } @else {
+    <p class="aviso aviso--alerta" role="status">Todavía no hay pagos registrados.</p>
+    <div class="acciones">
+      <a class="boton" routerLink="/busqueda">Consultar un permiso</a>
+    </div>
+  }
+
+  <app-reiniciar-datos (reiniciado)="actualizar()" />
+</section>

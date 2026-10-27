@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-lg);
+}
+
+table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+th {
+  background: var(--color-superficie-baja);
+  font-size: var(--texto-sm);
+}
+
+.num {
+  text-align: right;
+}
+
+tfoot td {
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+a {
+  color: var(--color-primario);
+  font-weight: 600;
+}

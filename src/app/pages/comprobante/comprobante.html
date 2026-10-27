@@ -1,0 +1,33 @@
+<section class="pagina">
+  @if (pago; as p) {
+    <article class="comprobante">
+      <header class="comprobante__cabecera">
+        <p class="comprobante__municipio">{{ p.municipalidad }}</p>
+        <h1>Comprobante de pago</h1>
+        <p>Permiso de circulación</p>
+      </header>
+
+      <dl>
+        <div><dt>N° de comprobante</dt><dd>{{ p.id }}</dd></div>
+        <div><dt>Fecha</dt><dd>{{ p.fecha | date: 'dd/MM/yyyy HH:mm' }}</dd></div>
+        <div><dt>Patente</dt><dd>{{ p.patente }}</dd></div>
+        <div><dt>Municipalidad</dt><dd>{{ p.municipalidad }}</dd></div>
+        <div><dt>Monto pagado</dt><dd>{{ p.monto | currency: 'CLP' : 'symbol' : '1.0-0' }}</dd></div>
+        <div><dt>Estado</dt><dd><span [class]="'estado estado--' + p.estado">{{ p.estado }}</span></dd></div>
+      </dl>
+
+      <p class="comprobante__nota">Documento simulado con fines académicos, sin validez tributaria.</p>
+    </article>
+
+    <div class="acciones no-imprimir">
+      <button type="button" class="boton" (click)="imprimir()">Imprimir comprobante</button>
+      <a class="boton boton--secundario" routerLink="/historial">Ver historial</a>
+      <a class="boton boton--secundario" routerLink="/busqueda">Nueva consulta</a>
+    </div>
+  } @else {
+    <p class="aviso aviso--error" role="alert">No encontramos el comprobante <strong>{{ pagoId }}</strong>.</p>
+    <div class="acciones">
+      <a class="boton" routerLink="/historial">Ir al historial</a>
+    </div>
+  }
+</section>

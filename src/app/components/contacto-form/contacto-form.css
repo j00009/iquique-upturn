@@ -1,0 +1,119 @@
+:host { display: block; }
+.contacto {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--espacio-xl) 0;
+}
+
+.contacto__contenedor {
+  width: 100%;
+  padding: var(--espacio-xl);
+  background: var(--color-superficie-baja);
+  border-radius: var(--radio-lg);
+}
+
+.contacto__intro h2 {
+  margin: 0 0 0.4rem;
+  color: var(--color-primario);
+}
+
+.contacto__intro p {
+  color: var(--color-texto-variante);
+  margin: 0 0 var(--espacio-lg);
+}
+
+.contacto__form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--espacio-md);
+  padding-top: var(--espacio-sm);
+}
+
+@media (min-width: 640px) {
+  .contacto__form {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .campo--ancho {
+    grid-column: 1 / -1;
+  }
+
+  .contacto__boton {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}
+
+@media (max-width: 639px) {
+  .contacto {
+    padding: var(--espacio-lg) var(--espacio-md);
+  }
+
+  .contacto__contenedor {
+    padding: var(--espacio-lg);
+  }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.campo label {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio-md);
+  padding: 0.65rem 0.75rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.campo input[aria-invalid='true'],
+.campo select[aria-invalid='true'],
+.campo textarea[aria-invalid='true'] {
+  border-color: var(--color-error);
+}
+
+.campo__error {
+  color: var(--color-error);
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.contacto__aviso {
+  grid-column: 1 / -1;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radio-md);
+  font-size: 0.9rem;
+}
+
+.contacto__aviso--exito {
+  background: #dff5e1;
+  color: #1b5e20;
+}
+
+.contacto__aviso--error {
+  background: #ffdad6;
+  color: var(--color-error);
+}
+
+.contacto__boton {
+  background: var(--color-secundario);
+  color: #fff;
+  border: none;
+  border-radius: var(--radio-md);
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contacto__boton:hover {
+  background: var(--color-secundario-container);
+}

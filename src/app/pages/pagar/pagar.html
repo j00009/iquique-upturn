@@ -1,0 +1,63 @@
+<section class="pagina">
+  <h1>Pago del permiso de circulación</h1>
+
+  @if (antecedentes; as a) {
+    @switch (a.permiso.estado) {
+      @case ('pagado') {
+        <p class="aviso aviso--ok" role="status">Este permiso ya fue pagado. No se puede pagar nuevamente.</p>
+        <div class="acciones">
+          <a class="boton" [routerLink]="['/permiso', a.permiso.patente]">Ver detalle</a>
+        </div>
+      }
+      @case ('incompleto') {
+        <p class="aviso aviso--alerta" role="alert">
+          Faltan datos del propietario. Debes completarlos antes de pagar.
+        </p>
+        <div class="acciones">
+          <a class="boton" [routerLink]="['/permiso', a.permiso.patente, 'datos']">Completar datos</a>
+        </div>
+      }
+      @default {
+        <p class="pagina__intro">
+          Revisa la información y confirma la operación. Es un pago simulado: no se realiza ningún cobro real.
+        </p>
+
+        <app-resumen-permiso [antecedentes]="a" />
+
+        <div class="total">
+          <span>Total a pagar</span>
+          <strong>{{ a.permiso.monto | currency: 'CLP' : 'symbol' : '1.0-0' }}</strong>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="pagar()" novalidate>
+          <label class="confirmacion">
+            <input type="checkbox" formControlName="confirmo"
+                   [attr.aria-invalid]="confirmoInvalido()" aria-describedby="error-confirmo" />
+            Confirmo que los datos del vehículo y el monto son correctos.
+          </label>
+          @if (confirmoInvalido()) {
+            <p id="error-confirmo" class="campo__error" role="alert">
+              Debes confirmar la operación para continuar.
+            </p>
+          }
+
+          @if (errorPago()) {
+            <p class="aviso aviso--error" role="alert">{{ errorPago() }}</p>
+          }
+
+          <div class="acciones">
+            <button type="submit" class="boton" [disabled]="procesando()">
+              {{ procesando() ? 'Procesando pago…' : 'Confirmar y pagar' }}
+            </button>
+            <a class="boton boton--secundario" [routerLink]="['/permiso', a.permiso.patente]">Cancelar</a>
+          </div>
+        </form>
+      }
+    }
+  } @else {
+    <p class="aviso aviso--error" role="alert">No encontramos el permiso que quieres pagar.</p>
+    <div class="acciones">
+      <a class="boton" routerLink="/busqueda">Volver a la búsqueda</a>
+    </div>
+  }
+</section>

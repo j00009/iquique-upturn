@@ -1,0 +1,56 @@
+:host {
+  display: block;
+}
+
+.comprobante {
+  background: #fff;
+  border: 2px solid var(--color-primario);
+  border-radius: var(--radio-lg);
+  padding: var(--espacio-lg);
+}
+
+.comprobante__cabecera {
+  text-align: center;
+  border-bottom: 1px dashed var(--color-borde);
+  padding-bottom: var(--espacio-md);
+  margin-bottom: var(--espacio-md);
+}
+
+.comprobante__cabecera p {
+  margin: 0;
+  color: var(--color-texto-variante);
+}
+
+.comprobante__municipio {
+  font-weight: 600;
+}
+
+dl {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--espacio-md);
+  margin: 0;
+}
+
+dt {
+  color: var(--color-texto-variante);
+  font-size: var(--texto-sm);
+}
+
+dd {
+  margin: 0.15rem 0 0;
+  font-weight: 600;
+}
+
+.comprobante__nota {
+  margin: var(--espacio-lg) 0 0;
+  font-size: var(--texto-xs);
+  color: var(--color-texto-variante);
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  dl {
+    grid-template-columns: 1fr;
+  }
+}

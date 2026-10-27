@@ -1,0 +1,46 @@
+<section class="carrusel" role="region" aria-roledescription="carrusel"
+         aria-label="Destacados de la Municipalidad" (mouseenter)="detenerAutoplay()"
+         (mouseleave)="autoplayActivo() && iniciarAutoplay()" (focusin)="detenerAutoplay()"
+         (focusout)="autoplayActivo() && iniciarAutoplay()" (keydown.arrowright)="desplazar(1)"
+         (keydown.arrowleft)="desplazar(-1)">
+  <div class="carrusel__track" #carruselTrack (scroll)="alScroll()">
+    @for (slide of destacados; track $index; let i = $index) {
+      <article #slideRef class="carrusel__slide" role="group"
+               [attr.aria-roledescription]="'diapositiva'"
+               [attr.aria-label]="'Diapositiva ' + (i + 1) + ' de ' + destacados.length"
+               [style.background-image]="'url(' + slide.imagenUrl + ')'">
+        <img [src]="slide.imagenUrl" [alt]="slide.imagenAlt" class="carrusel__imagen-sr" />
+        <div class="carrusel__contenido">
+          <h2>{{ slide.titulo }}</h2>
+          <p>{{ slide.descripcion }}</p>
+          <a [href]="slide.ctaLink" class="carrusel__cta">{{ slide.ctaTexto }}</a>
+        </div>
+      </article>
+    }
+  </div>
+  <button type="button" class="carrusel__flecha carrusel__flecha--prev" aria-label="Diapositiva anterior"
+          (click)="desplazar(-1)">
+    <span aria-hidden="true">‹</span>
+  </button>
+  <button type="button" class="carrusel__flecha carrusel__flecha--next" aria-label="Diapositiva siguiente"
+          (click)="desplazar(1)">
+    <span aria-hidden="true">›</span>
+  </button>
+  <div class="carrusel__controles">
+    <div class="carrusel__dots" role="tablist" aria-label="Seleccionar diapositiva">
+      @for (slide of destacados; track $index; let i = $index) {
+        <button type="button" class="carrusel__dot"
+                [class.carrusel__dot--activo]="i === currentIndex()" role="tab" [attr.aria-selected]="i === currentIndex()"
+                [attr.aria-label]="'Ir a diapositiva ' + (i + 1)" (click)="irA(i)"></button>
+      }
+    </div>
+    <button type="button" class="carrusel__pausa" (click)="toggleAutoplay()" [attr.aria-pressed]="!autoplayActivo()">
+      {{ autoplayActivo() ? 'Pausar' : 'Reproducir' }}
+    </button>
+  </div>
+  <div class="sr-only" aria-live="polite">
+    @if (destacados.length > 0) {
+      {{ destacados[currentIndex()].titulo }}
+    }
+  </div>
+</section>

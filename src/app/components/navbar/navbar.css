@@ -1,0 +1,138 @@
+/* app-navbar no genera caja propia, para que el header sticky funcione */
+:host {
+  display: contents;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--color-primario);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+}
+
+.navbar {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem var(--espacio-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--espacio-md);
+}
+
+.navbar__marca {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.navbar__logo {
+  display: block;
+  height: 2.25rem;
+  width: auto;
+}
+
+/* == Botón hamburguesa (celular y tablet) == */
+.navbar__hamburguesa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radio-md);
+  color: #fff;
+  cursor: pointer;
+}
+
+.navbar__hamburguesa:hover {
+  background: var(--color-primario-container);
+}
+
+.navbar__hamburguesa .material-symbols-outlined {
+  font-size: 1.75rem;
+}
+
+/* == Menú: en móvil es un panel desplegable bajo el header == */
+.navbar__links {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  padding: var(--espacio-md);
+  list-style: none;
+  background: var(--color-primario);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.navbar__links--abierto {
+  display: flex;
+}
+
+.navbar__links a {
+  display: block;
+  padding: 0.85rem 0.75rem;
+  color: #cfe9e5;
+  text-decoration: none;
+  white-space: nowrap;
+  border-radius: var(--radio-md);
+}
+
+.navbar__links a:hover,
+.navbar__links a:focus-visible {
+  color: #fff;
+  background: var(--color-primario-container);
+}
+
+.navbar__links a.activo {
+  color: #fff;
+  font-weight: 700;
+  background: var(--color-primario-container);
+}
+
+.navbar__cta {
+  margin-top: 0.5rem;
+}
+
+.navbar__links .navbar__portal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: var(--color-secundario);
+  color: #fff;
+  font-weight: 700;
+}
+
+.navbar__links .navbar__portal:hover {
+  background: var(--color-secundario-container);
+}
+
+/* == Escritorio: menú en una sola fila, sin hamburguesa == */
+@media (min-width: 1100px) {
+  .navbar__hamburguesa {
+    display: none;
+  }
+
+  .navbar__links {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .navbar__cta {
+    margin: 0 0 0 0.75rem;
+  }
+}
