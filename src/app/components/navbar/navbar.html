@@ -1,8 +1,6 @@
 <header class="site-header">
   <nav class="navbar" aria-label="Navegación principal" (keydown.escape)="cerrar()">
-    <a routerLink="/" class="navbar__marca" aria-label="Ir al inicio" (click)="cerrar()">
-      <img src="img/logo-municipalidad_iquique.png" alt="Ilustre Municipalidad de Iquique" class="navbar__logo" />
-    </a>
+    <a routerLink="/" class="navbar__marca" aria-label="Ir al inicio" (click)="cerrar()">Municipalidad de Iquique</a>
 
     <button type="button" class="navbar__hamburguesa" aria-controls="menu-principal"
             [attr.aria-expanded]="menuAbierto()"
@@ -12,20 +10,11 @@
     </button>
 
     <ul id="menu-principal" class="navbar__links" [class.navbar__links--abierto]="menuAbierto()">
-      <li><a routerLink="/" fragment="tramites-titulo" (click)="cerrar()">Trámites</a></li>
+      <li><a routerLink="/" fragment="situaciones-titulo" (click)="cerrar()">Trámites</a></li>
       <li><a routerLink="/" fragment="noticias-titulo" (click)="cerrar()">Noticias</a></li>
-      <li><a routerLink="/" fragment="contacto-titulo" (click)="cerrar()">Atención al Vecino</a></li>
-      <li>
-        <a routerLink="/historial" routerLinkActive="activo" ariaCurrentWhenActive="page" (click)="cerrar()">
-          Mis pagos
-        </a>
-      </li>
-      <li class="navbar__cta">
-        <a class="navbar__portal" routerLink="/busqueda" (click)="cerrar()">
-          <span class="material-symbols-outlined" aria-hidden="true">directions_car</span>
-          Pagar permiso
-        </a>
-      </li>
+      <li><a routerLink="/" fragment="contacto-titulo" (click)="cerrar()">Atención al vecino</a></li>
+      <li><a routerLink="/historial" routerLinkActive="activo" ariaCurrentWhenActive="page" (click)="cerrar()">Mis pagos</a></li>
+      <li class="navbar__cta"><a class="navbar__portal" routerLink="/busqueda" (click)="cerrar()">Pagar permiso</a></li>
     </ul>
   </nav>
 </header>

@@ -1,41 +1,23 @@
-<app-carrusel />
-<app-hero-buscador (buscar)="terminoBusqueda.set($event)" />
-<app-feriado-widget />
-
-<!-- TRÁMITES FRECUENTES (se filtran en vivo desde el buscador) -->
-<section class="tramites">
-  <div class="section-header">
-    <div>
-      <div class="section-label">
-        <span class="material-symbols-outlined" aria-hidden="true">domain</span>
-        <span>Gestión Digital Ciudadana</span>
-      </div>
-      <h2 id="tramites-titulo">Trámites Más Frecuentes</h2>
-    </div>
-    <a href="#" class="catalogo-link">
-      Ver catálogo completo de trámites
-      <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
-    </a>
-  </div>
-  <div class="tramites-grid">
-    @if (tramitesFiltrados().length === 0) {
-      <p class="tramites__sin-resultados" role="status">
-        No encontramos trámites que coincidan con tu búsqueda.
-      </p>
-    }
-    @for (tramite of tramitesFiltrados(); track tramite.id) {
-      <app-tramite-card [tramite]="tramite" />
-    }
-  </div>
+<header class="site-header wrap">
+  <a class="wordmark" href="/">Municipalidad de Iquique</a>
+  <nav aria-label="Navegación principal"><a href="#situaciones">Trámites</a><a href="#noticias">Noticias</a><a href="#contacto">Atención al vecino</a><a href="#situaciones">Mis pagos</a><a class="btn dark" href="#situaciones">Pagar permiso</a></nav>
+</header>
+<section class="hero wrap">
+  <div class="hero-copy"><h1>Tierra de Campeones</h1><p class="lead">Trámites, noticias y servicios de la Municipalidad de Iquique, en un solo lugar.</p><div class="search" role="search"><label for="q">¿Qué trámite buscas?</label><div class="search-row"><input id="q" type="search" placeholder="Permiso de circulación, patente, licencia" (input)="busqueda.set($any($event.target).value)"><button class="btn blue" type="button" (click)="buscar()">Buscar</button></div><p class="consultados">Más consultados: <a href="#situaciones">Permiso de circulación</a>, <a href="#situaciones">licencia de conducir</a> y <a href="#situaciones">patentes</a>.</p></div></div>
+  <img class="hero-photo" src="/img/edificio-img-1.png" alt="Foto del borde costero de Iquique (pendiente)">
 </section>
-
-<section class="servicios">
-  <div class="servicios-grid">
-    <app-seguridad />
-    <app-farmacias-turno />
-  </div>
+<section class="today" aria-label="Hoy en Iquique"><div class="wrap today-inner"><div><h2>Próximo feriado</h2><p>{{ feriadoTexto() }}</p></div><div><h2>Farmacia de turno</h2><p>Cruz Verde, Vivanco 820 con Tarapacá. Abierta las 24 horas.</p></div><div><h2>Atención presencial</h2><p>Lunes a viernes, de 08:30 a 13:30 hrs, en Plaza Prat s/n.</p></div></div></section>
+<section id="situaciones" class="situaciones wrap"><h2>¿Qué necesitas resolver hoy?</h2><p class="intro">Elige tu situación y verás solo los trámites que corresponden, con su canal y su costo.</p>
+ <div class="tiles">
+  <button type="button" class="tile vehicle" [class.active]="situacion() === 'vehicle'" [attr.aria-pressed]="situacion() === 'vehicle'" (click)="situacion.set('vehicle')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16v-5l2-5h10l2 5v5M3 16h18M7 19v-3M17 19v-3"/></svg><span><strong>Tengo un vehículo</strong><small>Permiso de circulación y licencia de conducir.</small></span></button>
+  <button type="button" class="tile business" [class.active]="situacion() === 'business'" [attr.aria-pressed]="situacion() === 'business'" (click)="situacion.set('business')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9l1-5h14l1 5M4 9v11h16V9M4 9h16M10 20v-6h4v6"/></svg><span><strong>Tengo un negocio</strong><small>Patentes comerciales, industriales, profesionales y de alcoholes.</small></span></button>
+  <button type="button" class="tile family" [class.active]="situacion() === 'family'" [attr.aria-pressed]="situacion() === 'family'" (click)="situacion.set('family')"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7M5 10v10h14V10M10 20v-5h4v5"/></svg><span><strong>Mi familia y mi barrio</strong><small>Subsidios, farmacia popular, aseo y tolvas comunitarias.</small></span></button>
+  <a class="tile urgent" href="#seguridad"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg><span><strong>Necesito ayuda urgente</strong><small>Seguridad ciudadana 1402, las 24 horas.</small></span></a>
+ </div>
+ <div class="panel" [class.panel-business]="situacion() === 'business'" [class.panel-family]="situacion() === 'family'"><h3>{{ panel().titulo }}</h3><div class="cards">@for (item of panel().items; track item.titulo) {<article class="card"><div><svg class="card-icon" viewBox="0 0 24 24" aria-hidden="true"><path [attr.d]="iconoTramite(item.titulo)"/></svg><h4>{{ item.titulo }}</h4><p>{{ item.descripcion }}</p></div><div class="card-foot"><span [style.color]="panel().color">{{ item.dato }}</span><a class="btn" [style.background]="panel().color" href="#">{{ item.boton }}</a></div></article>}</div><p class="catalog"><a href="#">Ver el catálogo completo de trámites</a></p></div>
 </section>
-
-<app-noticias />
-<app-promo-app />
-<app-contacto-form />
+<section id="seguridad" class="security"><div class="wrap security-inner"><div><h2>Iquique te cuida: seguridad ciudadana 1402</h2><p>Más de 200 cámaras de alta resolución vigilan el borde costero de Playa Brava, Cavancha y los cuadrantes residenciales, en coordinación con Carabineros y la Armada.</p><div class="actions"><a class="btn red" href="tel:1402">Llamar al 1402</a><a class="btn outline" href="#">Descargar la app SOS Iquique</a></div><p class="note">La llamada es gratuita.</p></div><dl><div><dt>28 móviles</dt><dd>en patrullaje preventivo</dd></div><div><dt>Menos de 6 minutos</dt><dd>de respuesta media en el casco urbano</dd></div><div><dt>Cámaras costeras con IA</dt><dd>detectan patentes en todo el borde costero</dd></div></dl></div></section>
+<section id="noticias" class="news wrap"><div class="section-title"><h2>Noticias de la comuna</h2><a href="#">Ver todas las noticias</a></div><div class="news-grid"><article class="feature"><img src="/img/caletacavancha.jpg" alt="Foto del paseo peatonal remodelado en Playa Cavancha (pendiente)"><p class="meta"><b>Obras públicas</b> &nbsp;18 de febrero de 2025</p><h3>Inauguración de obras de remodelación y áreas verdes en Playa Cavancha</h3><p>El municipio completó la renovación de 14.000 metros cuadrados de senderos peatonales, con iluminación LED sustentable y nuevo mobiliario con accesibilidad universal.</p></article><div class="news-side"><article><img src="/img/vacuanaiquiqe.jpg" alt="Foto de la campaña de vacunación (pendiente)"><p class="meta"><b class="green">Salud municipal</b> &nbsp;16 de febrero de 2025</p><h3>Campaña de vacunación comunal e inscripción en Centros de Salud Familiar</h3><p>Salud Cormudesi habilita puntos móviles en plazas y extiende los horarios de atención preventiva.</p></article><article class="third"><img src="/img/iquiquedeporte.png" alt="Foto de actividades deportivas y culturales en Iquique"><p class="meta"><b class="ochre">Cultura y deporte</b> &nbsp;14 de febrero de 2025</p><h3>Festival Cultural Iquique Verano y actividades deportivas en el borde costero</h3><p>Torneos abiertos de surf y voleibol playa, y conciertos de artistas regionales en Playa Brava durante todo el mes.</p></article></div></div></section>
+<section class="promo"><div class="wrap promo-inner"><div class="promo-copy"><img class="app-logo" src="/img/miquique.png" alt="Logo de la aplicación Mi Iquique"><div><h2>Mi Iquique, la app de tu municipalidad</h2><p>Servicios municipales, comercio local y actividades culturales desde tu celular. Es gratis.</p></div></div><div class="actions"><a class="btn outline" href="#">Google Play</a><a class="btn outline" href="#">App Store</a><a class="btn outline" href="#">AppGallery</a></div></div></section>
+<section id="contacto" class="contact wrap"><div><h2>¿Tienes una consulta, un reclamo o una sugerencia?</h2><p>Escríbenos a la Oficina de Información, Reclamos y Sugerencias (OIRS). Te responderemos al correo que nos indiques.</p></div><form (submit)="$event.preventDefault()"><div class="field"><label for="n">Nombre completo</label><input id="n" type="text"></div><div class="field"><label for="e">Correo electrónico</label><input id="e" type="email"></div><div class="field full"><label for="a">Asunto</label><select id="a"><option>Trámites y pagos</option><option>Reclamo</option><option>Sugerencia</option><option>Otro</option></select></div><div class="field full"><label for="m">Mensaje</label><textarea id="m" rows="4"></textarea></div><button class="btn blue" type="submit">Enviar mensaje</button></form></section>
+<footer class="footer"><div class="wrap"><div class="footer-grid"><div><p class="footer-brand">Ilustre Municipalidad de Iquique</p><p>Edificio Consistorial, Plaza Prat s/n, Iquique, Región de Tarapacá.</p></div><div><h3>Números de emergencia</h3><p>Seguridad ciudadana 1402<br>SAMU 131<br>Bomberos 132<br>Carabineros 133</p></div><div><h3>Transparencia y ley</h3><p><a href="#">Transparencia activa</a><br><a href="#">Ley del Lobby</a><br><a href="#">Solicitudes OIRS y SAI</a><br><a href="#">Cuenta pública municipal</a></p></div><div><h3>Contacto ciudadano</h3><p>Mesa central: (57) 251 4500<br>contacto@municipioiquique.cl<br>Lunes a viernes, 08:30 a 13:30 hrs</p></div></div><p class="copyright">© 2026 Ilustre Municipalidad de Iquique. Todos los derechos reservados.</p></div></footer>

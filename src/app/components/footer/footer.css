@@ -2,9 +2,10 @@
 /* == FOOTER == */
 .site-footer {
   width: 100%;
-  background: var(--color-primario);
-  color: var(--color-primario-suave);
-  padding: 3rem 1.5rem 1.5rem;
+  margin-top: 96px;
+  background: #1A2330;
+  color: #D5DBE3;
+  padding: 56px clamp(24px, 5vw, 80px) 28px;
 }
 
 .site-footer__container {

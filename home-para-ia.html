@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Municipalidad de Iquique — Página principal</title>
+  <meta name="description" content="Resumen completo y autónomo de la página principal del sitio de la Municipalidad de Iquique.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root {
+      --primario: #0a2e36;
+      --primario-container: #123f49;
+      --secundario: #0fb8a6;
+      --secundario-container: #0ea394;
+      --terciario: #c97a3d;
+      --error: #ba1a1a;
+      --superficie: #faf7f2;
+      --superficie-baja: #e7e0d1;
+      --texto: #1c2b2e;
+      --texto-variante: #4a5a5c;
+      --borde: #d3cabb;
+      --blanco: #fff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; overflow-x: hidden; font-family: "Plus Jakarta Sans", sans-serif; background: var(--superficie); color: var(--texto); }
+    a { color: inherit; }
+    img { max-width: 100%; }
+    .material-symbols-outlined { font-family: "Material Symbols Outlined"; font-size: 24px; line-height: 1; }
+
+    .header { position: sticky; top: 0; z-index: 50; background: var(--primario); box-shadow: 0 1px 8px #0003; }
+    .navbar { max-width: 1200px; height: 68px; margin: auto; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .navbar-logo { height: 36px; }
+    .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; margin: 0; padding: 0; }
+    .nav-links a { display: block; padding: 14px 12px; color: #cfe9e5; text-decoration: none; border-radius: 12px; }
+    .nav-links a:hover { color: white; background: var(--primario-container); }
+    .nav-links .portal { display: flex; align-items: center; gap: 6px; margin-left: 12px; background: var(--secundario); color: white; font-weight: 700; }
+
+    .carousel { position: relative; height: clamp(300px, 70vh, 600px); overflow: hidden; background: #071d25; }
+    .slide { position: absolute; inset: 0; display: flex; align-items: flex-end; background-size: cover; background-position: center; }
+    .slide::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #0002 20%, #001b31d9 100%); }
+    .slide-content { position: relative; z-index: 1; max-width: 600px; padding: 32px 24px 80px; color: white; }
+    .slide-content h1, .slide-content h2 { margin: 0 0 8px; font-size: clamp(24px, 4vw, 36px); }
+    .slide-content p { margin: 0 0 16px; color: #d2e4ff; }
+    .cta { display: inline-block; padding: 10px 18px; border-radius: 12px; background: var(--secundario); color: white; text-decoration: none; font-weight: 700; }
+
+    .hero { background: linear-gradient(180deg, var(--primario), #0a1e38); color: white; padding: 24px 16px; }
+    .hero-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: 45% 1fr; align-items: center; gap: 24px; }
+    .hero h2 { margin: 0 0 6px; font-size: clamp(28px, 3.5vw, 40px); }
+    .hero p { color: #d2e4ff; }
+    .search-box { display: flex; align-items: center; gap: 8px; padding: 8px; border-radius: 16px; background: white; }
+    .search-box .material-symbols-outlined { color: var(--texto-variante); margin-left: 8px; }
+    .search-box input { flex: 1; min-width: 0; border: 0; outline: 0; padding: 10px; font: inherit; }
+    .search-box button { border: 0; border-radius: 12px; background: var(--secundario); color: white; padding: 10px 16px; font: inherit; font-weight: 700; }
+    .search-label { display: block; margin-bottom: 6px; color: #d2e4ff; font-weight: 600; }
+    .suggestions { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 10px 0 0; padding: 0; }
+    .suggestions a { display: block; padding: 6px 12px; border-radius: 999px; background: #ffffff1f; color: #d2e4ff; text-decoration: none; font-size: 13px; }
+
+    .feriado { position: relative; z-index: 10; max-width: 1200px; margin: -24px auto 0; padding: 16px 24px; display: flex; align-items: center; gap: 16px; border-radius: 16px; background: white; box-shadow: 0 4px 16px #00000014; }
+    .feriado-icon { width: 48px; height: 48px; display: grid; place-items: center; flex-shrink: 0; border-radius: 50%; background: var(--secundario-container); color: white; }
+    .feriado h2 { margin: 0 0 3px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--texto-variante); }
+    .feriado p { margin: 0; }
+
+    .tramites { max-width: 1300px; margin: auto; padding: 55px 24px; }
+    .section-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 28px; }
+    .section-label { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; color: var(--secundario-container); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .section-header h2 { margin: 0; color: var(--primario); font-size: 28px; }
+    .catalogo-link { color: var(--secundario-container); text-decoration: none; font-size: 13px; font-weight: 700; }
+    .tramites-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+    .tramite-card { position: relative; min-height: 205px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 17px; border: 1px solid var(--borde); border-radius: 9px; background: white; box-shadow: 0 2px 7px #0000000f; }
+    .tramite-card::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: var(--secundario); }
+    .tramite-card.orange::before { background: var(--terciario); }
+    .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .icon { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 9px; background: #d5f2ed; color: var(--secundario-container); }
+    .orange .icon { background: #f7ead9; color: var(--terciario); }
+    .badge { padding: 3px 9px; border-radius: 20px; background: #d5f2ed; font-size: 12px; font-weight: 700; }
+    .orange .badge { background: #f7ead9; color: var(--terciario); }
+    .gray-badge { background: var(--superficie-baja); color: var(--texto-variante); }
+    .tramite-card h3 { margin: 0 0 6px; color: var(--primario); font-size: 16px; }
+    .tramite-card p { margin: 0; color: var(--texto-variante); font-size: 13px; line-height: 1.55; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 14px -17px -17px; padding: 11px 17px; background: var(--superficie-baja); }
+    .footer-info { display: flex; align-items: center; gap: 4px; color: var(--texto-variante); font-size: 12px; font-weight: 700; }
+    .footer-info.destacada { color: var(--secundario-container); }
+    .card-footer button { border: 0; border-radius: 6px; background: var(--secundario); color: white; padding: 8px 13px; font: inherit; font-size: 13px; font-weight: 700; }
+    .card-footer .dark { background: var(--primario); }
+
+    .servicios { padding: 35px 24px; }
+    .servicios-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: 2fr 1fr; gap: 14px; }
+    .seguridad { position: relative; min-height: 250px; overflow: hidden; padding: 25px; border-radius: 8px; background: var(--primario-container); color: white; }
+    .urgencia { display: inline-flex; align-items: center; gap: 5px; padding: 5px 9px; border-radius: 20px; background: var(--error); font-size: 12px; font-weight: 700; }
+    .central { margin-left: 8px; color: #d7ece8; font-size: 12px; }
+    .seguridad h3 { max-width: 520px; margin: 12px 0 8px; font-size: 24px; }
+    .seguridad p { max-width: 600px; color: #d7ece8; font-size: 13px; line-height: 1.5; }
+    .estadisticas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; margin: 18px 0; }
+    .estadisticas div { padding: 10px; border-radius: 5px; background: #ffffff17; }
+    .estadisticas span, .estadisticas small { display: block; color: #d7ece8; font-size: 12px; }
+    .estadisticas strong { display: block; margin: 3px 0; }
+    .seguridad-actions { display: flex; gap: 8px; }
+    .seguridad-actions a, .seguridad-actions button { display: flex; align-items: center; gap: 6px; border: 0; border-radius: 6px; padding: 9px 13px; font: inherit; font-size: 13px; font-weight: 700; text-decoration: none; }
+    .btn-emergency { background: var(--error); color: white; }
+    .btn-app { background: #ffffff24; color: white; }
+
+    .farmacias { display: flex; flex-direction: column; justify-content: space-between; padding: 17px; border-radius: 8px; background: white; box-shadow: 0 2px 7px #0000000a; }
+    .farmacia-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+    .farmacia-title-label { display: flex; align-items: center; gap: 5px; color: var(--secundario-container); font-size: 12px; font-weight: 700; }
+    .turno { padding: 4px 8px; border-radius: 20px; background: var(--superficie-baja); font-size: 12px; }
+    .farmacias h3 { margin: 0 0 5px; color: var(--primario); }
+    .farmacia-descripcion { color: var(--texto-variante); font-size: 12px; }
+    .farmacia-card { margin: 12px 0 10px; padding: 10px; border-radius: 6px; background: var(--superficie-baja); }
+    .farmacia-header { display: flex; justify-content: space-between; align-items: center; }
+    .farmacia-header span { border-radius: 3px; background: var(--secundario); color: white; padding: 3px 6px; font-size: 12px; }
+    .farmacia-card p { display: flex; align-items: center; gap: 4px; margin: 4px 0; color: var(--texto-variante); font-size: 12px; }
+    .mapa { height: 180px; overflow: hidden; border-radius: 6px; }
+    .mapa iframe { width: 100%; height: 100%; border: 0; }
+
+    .noticias { max-width: 1200px; margin: auto; padding: 40px 16px; }
+    .noticias-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+    .noticias-header h2 { color: var(--primario); }
+    .noticias-header a { color: var(--secundario); text-decoration: none; font-weight: 700; }
+    .noticias-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; list-style: none; margin: 0; padding: 0; }
+    .noticia-card { height: 100%; overflow: hidden; border-radius: 16px; background: white; box-shadow: 0 1px 8px #0000000f; }
+    .noticia-image { position: relative; height: 180px; }
+    .noticia-image img { width: 100%; height: 100%; object-fit: cover; }
+    .category { position: absolute; top: 12px; left: 12px; padding: 5px 11px; border-radius: 12px; background: var(--secundario); color: white; font-size: 12px; font-weight: 700; }
+    .noticia-body { display: flex; flex-direction: column; gap: 6px; padding: 16px; }
+    .noticia-body time { color: var(--texto-variante); font-size: 13px; }
+    .noticia-body h3 { margin: 0; font-size: 17px; }
+    .noticia-body p { flex: 1; color: var(--texto-variante); font-size: 14px; }
+    .noticia-body a { color: var(--secundario); text-decoration: none; font-weight: 700; }
+
+    .promo-app { max-width: 1200px; margin: 0 auto 40px; padding: 40px; display: grid; grid-template-columns: 40% 60%; align-items: center; gap: 24px; border-radius: 16px; background: var(--superficie-baja); }
+    .promo-logo { height: 112px; }
+    .promo-app h2 { color: var(--primario); }
+    .promo-app p { color: var(--texto-variante); }
+    .promo-app-image img { width: 100%; border-radius: 16px; }
+    .store-badges { display: flex; flex-wrap: wrap; gap: 12px; }
+    .store-badges a { display: flex; align-items: center; gap: 8px; padding: 8px 16px; border-radius: 12px; background: var(--primario); color: white; text-decoration: none; }
+    .store-badges small, .store-badges strong { display: block; }
+    .store-badges small { color: #cfe9e5; font-size: 10px; }
+
+    .contacto { max-width: 1200px; margin: auto; padding: 40px 16px; }
+    .contacto-container { padding: 40px; border-radius: 16px; background: var(--superficie-baja); }
+    .contacto h2 { margin-top: 0; color: var(--primario); }
+    .contacto-form { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .campo { display: flex; flex-direction: column; gap: 6px; }
+    .campo.full { grid-column: 1 / -1; }
+    .campo input, .campo select, .campo textarea { padding: 10px 12px; border: 1px solid var(--borde); border-radius: 12px; font: inherit; }
+    .contacto-form button { justify-self: start; border: 0; border-radius: 12px; background: var(--secundario); color: white; padding: 12px 24px; font: inherit; font-weight: 700; }
+
+    .footer { background: var(--primario); color: #d7ece8; padding: 48px 24px 24px; }
+    .footer-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; }
+    .footer h3 { color: white; }
+    .footer a { color: #d7ece8; }
+    .footer-brand { display: flex; align-items: center; gap: 12px; }
+    .footer-brand img { height: 48px; filter: brightness(0) invert(1); }
+    .footer ul { list-style: none; margin: 0; padding: 0; }
+    .footer li { margin: 10px 0; }
+    .footer-bottom { max-width: 1200px; margin: 24px auto 0; padding-top: 24px; display: flex; justify-content: space-between; border-top: 1px solid #ffffff1f; font-size: 13px; }
+
+    @media (max-width: 900px) {
+      .nav-links li:not(.nav-cta) { display: none; }
+      .hero-grid, .promo-app { grid-template-columns: 1fr; }
+      .tramites-grid { grid-template-columns: repeat(2, 1fr); }
+      .servicios-grid { grid-template-columns: 1fr; }
+      .noticias-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .navbar { height: auto; }
+      .carousel { height: 420px; }
+      .feriado { margin: 0 12px; }
+      .search-box { align-items: stretch; flex-wrap: wrap; }
+      .search-box input { width: calc(100% - 40px); }
+      .search-box button { width: 100%; }
+      .section-header { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .tramites-grid { grid-template-columns: 1fr; }
+      .estadisticas { grid-template-columns: 1fr; }
+      .seguridad-actions { flex-direction: column; }
+      .promo-app, .contacto-container { padding: 24px; }
+      .contacto-form { grid-template-columns: 1fr; }
+      .campo.full { grid-column: auto; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="navbar" aria-label="Navegación principal">
+      <a href="#" aria-label="Ir al inicio"><img class="navbar-logo" src="public/img/logo-municipalidad_iquique.png" alt="Ilustre Municipalidad de Iquique"></a>
+      <ul class="nav-links">
+        <li><a href="#tramites">Trámites</a></li>
+        <li><a href="#noticias">Noticias</a></li>
+        <li><a href="#contacto">Atención al Vecino</a></li>
+        <li><a href="#">Mis pagos</a></li>
+        <li class="nav-cta"><a class="portal" href="#tramites"><span class="material-symbols-outlined">directions_car</span>Pagar permiso</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="carousel" aria-label="Destacados de la Municipalidad">
+      <article class="slide" style="background-image:url('public/img/edificio-img-1.png')">
+        <div class="slide-content">
+          <h1>Tierra de Campeones</h1>
+          <p>Tu municipio más cerca, digital y al servicio de la comunidad de Iquique.</p>
+          <a class="cta" href="#tramites">Conoce tus trámites</a>
+        </div>
+      </article>
+    </section>
+
+    <section class="hero" aria-labelledby="hero-titulo">
+      <div class="hero-grid">
+        <div>
+          <h2 id="hero-titulo">Tierra de Campeones</h2>
+          <p>Trámites y servicios municipales en línea para la comunidad de Iquique.</p>
+        </div>
+        <div role="search">
+          <label class="search-label" for="buscador">¿Qué trámite necesitas hoy?</label>
+          <div class="search-box">
+            <span class="material-symbols-outlined">search</span>
+            <input id="buscador" type="search" placeholder="Ej: Licencia de conducir, pago de aseo...">
+            <button type="button">Buscar <span class="material-symbols-outlined">arrow_forward</span></button>
+          </div>
+          <ul class="suggestions">
+            <li><a href="#tramites">Permiso de Circulación</a></li>
+            <li><a href="#tramites">Licencia de Conducir</a></li>
+            <li><a href="#tramites">Patentes</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <aside class="feriado" aria-label="Próximo feriado">
+      <div class="feriado-icon"><span class="material-symbols-outlined">event</span></div>
+      <div><h2>Próximo feriado</h2><p>Información dinámica de feriados según el calendario nacional vigente.</p></div>
+    </aside>
+
+    <section class="tramites" id="tramites">
+      <div class="section-header">
+        <div>
+          <div class="section-label"><span class="material-symbols-outlined">domain</span>Gestión Digital Ciudadana</div>
+          <h2>Trámites Más Frecuentes</h2>
+        </div>
+        <a class="catalogo-link" href="#">Ver catálogo completo de trámites →</a>
+      </div>
+      <div class="tramites-grid">
+        <article class="tramite-card">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">directions_car</span></div><span class="badge">Campaña 2025</span></div><h3>Permiso de Circulación</h3><p>Pago online ágil, consulta de multas no empadronadas, traslado de comuna y descarga inmediata de duplicado oficial.</p></div>
+          <div class="card-footer"><span class="footer-info destacada"><span class="material-symbols-outlined">bolt</span>Trámite 100% Digital</span><button>Pagar en Línea</button></div>
+        </article>
+        <article class="tramite-card">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">badge</span></div><span class="badge gray-badge">Cupos Semanales</span></div><h3>Licencia de Conducir</h3><p>Agendamiento web para primera licencia, control psicotécnico, renovación de todas las clases y duplicados por extravío.</p></div>
+          <div class="card-footer"><span class="footer-info"><span class="material-symbols-outlined">schedule</span>Edificio Consistorial</span><button class="dark">Reservar Hora</button></div>
+        </article>
+        <article class="tramite-card orange">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">delete_sweep</span></div><span class="badge">Servicio Barrial</span></div><h3>Aseo y Tolvas Comunitarias</h3><p>Calendarización de cuadrillas, retiro de enseres voluminosos, solicitud de tolvas para juntas vecinales y aseo urbano.</p></div>
+          <div class="card-footer"><span class="footer-info"><span class="material-symbols-outlined">calendar_today</span>Rutas por cuadrante</span><button class="dark">Ver Calendario</button></div>
+        </article>
+        <article class="tramite-card">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">storefront</span></div><span class="badge">Comercial &amp; PyME</span></div><h3>Patentes Municipales</h3><p>Pago semestral de patentes comerciales, industriales, profesionales y de alcoholes. Certificados tributarios digitales.</p></div>
+          <div class="card-footer"><span class="footer-info destacada"><span class="material-symbols-outlined">credit_card</span>Pago con WebPay</span><button>Pagar Patente</button></div>
+        </article>
+        <article class="tramite-card orange">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">diversity_1</span></div><span class="badge">Desarrollo Social</span></div><h3>DIDECO y Subsidios Sociales</h3><p>Actualización del Registro Social de Hogares (RSH), subsidio de agua potable, becas de educación superior y apoyo a familias.</p></div>
+          <div class="card-footer"><span class="footer-info"><span class="material-symbols-outlined">info</span>Atención presencial/web</span><button class="dark">Consultar Ayudas</button></div>
+        </article>
+        <article class="tramite-card">
+          <div><div class="card-header"><div class="icon"><span class="material-symbols-outlined">vaccines</span></div><span class="badge">Salud para Todos</span></div><h3>Farmacia Municipal Popular</h3><p>Consulta de vademécum de remedios a precio de costo, reserva de medicamentos crónicos y proceso de inscripción vecinal.</p></div>
+          <div class="card-footer"><span class="footer-info destacada"><span class="material-symbols-outlined">check_circle</span>Ahorro de hasta 70%</span><button>Ver Catálogo</button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="servicios" aria-label="Servicios ciudadanos">
+      <div class="servicios-grid">
+        <div class="seguridad">
+          <div><span class="urgencia"><span class="material-symbols-outlined">e911_emergency</span>Urgencia 24 Horas</span><span class="central">Central Integrada de Cámaras y Seguridad</span></div>
+          <h3>Iquique Te Cuida: Seguridad Ciudadana 1402</h3>
+          <p>Monitoreo permanente de más de 200 cámaras de alta resolución en el borde costero de Playa Brava, Cavancha y cuadrantes residenciales, en coordinación directa con Carabineros y Armada.</p>
+          <div class="estadisticas"><div><span>FLOTA MÓVIL</span><strong>28 Móviles</strong><small>Patrullaje Preventivo</small></div><div><span>RESPUESTA MEDIA</span><strong>&lt; 6 Minutos</strong><small>En Casco Urbano</small></div><div><span>CÁMARAS COSTERAS</span><strong>100% IA</strong><small>Detección de Patentes</small></div></div>
+          <div class="seguridad-actions"><a class="btn-emergency" href="tel:1402"><span class="material-symbols-outlined">call</span>Llamar al 1402 Gratis</a><button class="btn-app"><span class="material-symbols-outlined">download</span>Descargar App SOS Iquique</button></div>
+        </div>
+        <div class="farmacias">
+          <div>
+            <div class="farmacia-title"><div class="farmacia-title-label"><span class="material-symbols-outlined">medical_services</span>SERVICIO DE SALUD</div><span class="turno">En Turno Hoy</span></div>
+            <h3>Farmacias de Turno</h3>
+            <p class="farmacia-descripcion">Atención farmacéutica nocturna obligatoria autorizada por la SEREMI de Salud de Tarapacá.</p>
+            <div class="farmacia-card"><div class="farmacia-header"><strong>Farmacia Cruz Verde</strong><span>24 Horas</span></div><p><span class="material-symbols-outlined">map</span>Vivanco N° 820 con Tarapacá (Centro)</p><p><span class="material-symbols-outlined">phone</span>Teléfono: (57) 242 1190</p></div>
+            <div class="mapa"><iframe src="https://maps.google.com/maps?q=Vivanco+820+esquina+Tarapac%C3%A1,+Iquique,+Chile&z=16&output=embed" title="Ubicación de Farmacia Cruz Verde" loading="lazy"></iframe></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="noticias" id="noticias">
+      <div class="noticias-header"><h2>Noticias y Actualidad Municipal</h2><a href="#">Todas las noticias</a></div>
+      <ul class="noticias-grid">
+        <li><article class="noticia-card"><div class="noticia-image"><img src="public/img/caletacavancha.jpg" alt="Paseo peatonal remodelado en Playa Cavancha"><span class="category">Obras Públicas</span></div><div class="noticia-body"><time>18 de febrero, 2025</time><h3>Inauguración de obras de remodelación y áreas verdes en Playa Cavancha</h3><p>El municipio completó la renovación de 14.000 metros cuadrados de senderos peatonales, iluminación LED sustentable con paneles solares y nuevo mobiliario con accesibilidad universal.</p><a href="#">Leer noticia completa →</a></div></article></li>
+        <li><article class="noticia-card"><div class="noticia-image"><img src="public/img/vacuanaiquiqe.jpg" alt="Profesional de salud vacunando a una paciente"><span class="category">Salud Municipal</span></div><div class="noticia-body"><time>16 de febrero, 2025</time><h3>Campaña de vacunación comunal e inscripción en Centros de Salud Familiar</h3><p>Salud Cormudesi habilita puntos móviles en plazas comunitarias y extiende los horarios de atención preventiva en los centros Cirujano Videla, Aguirre y Guzmán.</p><a href="#">Leer noticia completa →</a></div></article></li>
+        <li><article class="noticia-card"><div class="noticia-image"><img src="public/img/iquiquedeporte.png" alt="Concierto nocturno en el borde costero de Iquique"><span class="category">Cultura y Deporte</span></div><div class="noticia-body"><time>14 de febrero, 2025</time><h3>Festival Cultural Iquique Verano y actividades deportivas en el borde costero</h3><p>Torneos abiertos de surf, voleibol playa y conciertos de artistas regionales reúnen a miles de familias iquiqueñas en Playa Brava durante todo el mes estival.</p><a href="#">Leer noticia completa →</a></div></article></li>
+      </ul>
+    </section>
+
+    <section class="promo-app" aria-labelledby="promo-app-titulo">
+      <div>
+        <img class="promo-logo" src="public/img/miquique.png" alt="Logo Mi Iquique">
+        <h2 id="promo-app-titulo">Descarga la app gratis desde tu celular</h2>
+        <p>Esta aplicación impulsa la innovación social dentro de la ciudad, fortaleciendo el comercio local, las actividades culturales y los servicios municipales.</p>
+        <p><strong>Te invitamos a revisar los beneficios que la app tiene para ti.</strong></p>
+        <div class="store-badges">
+          <a href="https://play.google.com/store" target="_blank"><i class="fa-brands fa-google-play"></i><span><small>Disponible en</small><strong>Google Play</strong></span></a>
+          <a href="https://apps.apple.com" target="_blank"><i class="fa-brands fa-app-store-ios"></i><span><small>Disponible en</small><strong>App Store</strong></span></a>
+          <a href="https://appgallery.huawei.com" target="_blank"><i class="fa-solid fa-mobile-screen-button"></i><span><small>Explóralo en</small><strong>AppGallery</strong></span></a>
+        </div>
+      </div>
+      <div class="promo-app-image"><img src="public/img/bg-sosafe.jpg" alt="Persona usando la aplicación municipal en su teléfono"></div>
+    </section>
+
+    <section class="contacto" id="contacto">
+      <div class="contacto-container">
+        <h2>¿Tienes una consulta, reclamo o sugerencia?</h2>
+        <p>Escríbenos directamente a la Oficina de Información, Reclamos y Sugerencias (OIRS). Te responderemos al correo que nos indiques.</p>
+        <form class="contacto-form">
+          <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre" type="text"></div>
+          <div class="campo"><label for="email">Correo electrónico</label><input id="email" name="email" type="email"></div>
+          <div class="campo full"><label for="asunto">Asunto</label><select id="asunto" name="asunto"><option>Trámites y pagos</option><option>Reclamo</option><option>Sugerencia</option><option>Otro</option></select></div>
+          <div class="campo full"><label for="mensaje">Mensaje</label><textarea id="mensaje" name="mensaje" rows="4"></textarea></div>
+          <button type="submit">Enviar mensaje</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div><div class="footer-brand"><img src="public/img/escudo-iqq-blanco.svg" alt="Escudo municipal"><strong>Ilustre Municipalidad de Iquique</strong></div><p>Edificio Consistorial, Plaza Prat s/n, Iquique, Región de Tarapacá. Gobierno comunal al servicio de la ciudadanía.</p></div>
+      <div><h3>Números de Emergencia</h3><ul><li>Seguridad Ciudadana: <a href="tel:1402">1402</a></li><li>SAMU Urgencias: <a href="tel:131">131</a></li><li>Bomberos Iquique: <a href="tel:132">132</a></li><li>Carabineros Central: <a href="tel:133">133</a></li></ul></div>
+      <div><h3>Transparencia &amp; Ley</h3><ul><li><a href="https://www.portaltransparencia.cl/PortalPdT/pdtta?codOrganismo=MU112">Transparencia Activa</a></li><li><a href="https://www.leylobby.gob.cl/instituciones/MU112">Ley del Lobby</a></li><li><a href="https://www.municipioiquique.cl/atencion-vecino/reclamos-sugerencias.html">Solicitudes OIRS y SAI</a></li><li><a href="https://www.municipioiquique.cl/municipalidad/cuenta-publica.html">Cuenta Pública Municipal</a></li></ul></div>
+      <div><h3>Contacto Ciudadano</h3><p>Atención presencial de Lunes a Viernes de 08:30 a 13:30 hrs.</p><p>Mesa Central: (57) 251 4500</p><p>contacto@municipioiquique.cl</p></div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 Ilustre Municipalidad de Iquique. Todos los derechos reservados.</p><div><a href="#">Políticas de Privacidad</a> · <a href="#">Términos y Condiciones</a></div></div>
+  </footer>
+</body>
+</html>

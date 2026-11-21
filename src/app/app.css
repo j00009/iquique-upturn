@@ -1,0 +1,1 @@
+:host:has(app-inicio) app-navbar, :host:has(app-inicio) app-footer { display: none; }

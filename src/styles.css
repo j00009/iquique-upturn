@@ -1,21 +1,41 @@
 :root {
-  --color-primario: #0a2e36;
-  --color-primario-container: #123f49;
-  --color-secundario: #0fb8a6;
-  --color-secundario-container: #0ea394;
-  --color-terciario: #c97a3d;
-  --color-terciario-container: #f0d9bc;
-  --color-error: #ba1a1a;
-  --color-superficie: #faf7f2;
-  --color-superficie-baja: #e7e0d1;
-  --color-superficie-alta: #e6ded0;
-  --color-texto: #1c2b2e;
-  --color-texto-variante: #4a5a5c;
-  --color-borde: #d3cabb;
-  --color-sobre-primario: #ffffff;
-  --color-primario-suave: #d7ece8;
-  --color-secundario-suave: #d5f2ed;
-  --color-terciario-suave: #f7ead9;
+  --ink: #1A2330;
+  --muted: #4B5563;
+  --paper: #FAFAF7;
+  --line: #D9DDE2;
+  --white: #FFFFFF;
+  --vehicle: #1F5FA8;
+  --vehicle-soft: #E4EDF8;
+  --business: #3F7D4E;
+  --business-soft: #E3F0E7;
+  --family: #8A5A00;
+  --family-soft: #F7EBD3;
+  --safety: #B8422B;
+  --safety-soft: #F6E2DD;
+  --safety-line: #D9B5AC;
+  --photo-placeholder: #CFD8DF;
+  --photo-placeholder-text: #33414F;
+  --app-band: #ECEEEA;
+  --footer-text: #D5DBE3;
+  --footer-line: #3A4656;
+  --field: #7A8594;
+  --color-primario: #1A2330;
+  --color-primario-container: #1A2330;
+  --color-secundario: #1F5FA8;
+  --color-secundario-container: #1F5FA8;
+  --color-terciario: #8A5A00;
+  --color-terciario-container: #F7EBD3;
+  --color-error: #B8422B;
+  --color-superficie: #FAFAF7;
+  --color-superficie-baja: #ECEEEA;
+  --color-superficie-alta: #E3F0E7;
+  --color-texto: #1A2330;
+  --color-texto-variante: #4B5563;
+  --color-borde: #D9DDE2;
+  --color-sobre-primario: #FFFFFF;
+  --color-primario-suave: #D5DBE3;
+  --color-secundario-suave: #E4EDF8;
+  --color-terciario-suave: #F7EBD3;
 
   --radio-md: 0.75rem;
   --radio-lg: 1rem;
@@ -64,10 +84,14 @@ img {
 
 body {
   margin: 0;
-  font-family: "Plus Jakarta Sans", sans-serif;
-  background: var(--color-superficie);
-  color: var(--color-texto);
+  font-family: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", system-ui, sans-serif;
+  background: #FAFAF7;
+  color: #1A2330;
+  font-size: clamp(17px, 1.15vw, 20px);
+  line-height: 1.5;
 }
+
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid #1F5FA8; outline-offset: 2px; }
 
 
 .skip-link {

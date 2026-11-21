@@ -1,24 +1,25 @@
 :host { display: block; }
 .feriado {
-  max-width: 1200px;
-  margin: -1.5rem auto 0;
+  max-width: 1680px;
+  width: 100%;
+  margin: 40px auto 0;
+  padding: 20px clamp(24px, 5vw, 80px);
+  border: 0;
+  border-top: 2px solid #1A2330;
+  border-bottom: 1px solid #D9DDE2;
+  border-radius: 0;
   background: #fff;
-  border-radius: var(--radio-lg);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  padding: var(--espacio-md) var(--espacio-lg);
-  display: flex;
-  align-items: center;
-  gap: var(--espacio-md);
-  position: relative;
-  z-index: 10;
+  box-shadow: none;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .feriado__icono {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 999px;
-  background: var(--color-secundario-container);
-  color: #fff;
+  width: 48px;
+  height: 48px;
+  background: #E4EDF8;
+  color: #1F5FA8;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,9 +27,47 @@
 }
 
 .feriado__titulo {
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--color-texto-variante);
-  margin: 0 0 0.2rem;
+  margin: 0 0 4px;
+  color: #1A2330;
+  font-size: 17px;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.feriado__texto p {
+  margin: 0;
+  color: #4B5563;
+}
+
+.feriado__item {
+  min-width: 0;
+  padding: 0 24px;
+}
+
+.feriado__item:first-child {
+  padding-left: 0;
+}
+
+.feriado__item + .feriado__item {
+  border-left: 1px solid #D9DDE2;
+}
+
+.feriado__item p {
+  margin: 0;
+  color: #4B5563;
+}
+
+@media (max-width: 900px) {
+  .feriado {
+    grid-template-columns: 1fr;
+  }
+
+  .feriado__item {
+    padding: 16px 0;
+  }
+
+  .feriado__item + .feriado__item {
+    border-left: 0;
+    border-top: 1px solid #D9DDE2;
+  }
 }

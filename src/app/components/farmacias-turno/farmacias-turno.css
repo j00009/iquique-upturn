@@ -1,4 +1,4 @@
-:host { display: contents; }
+:host { display: none; }
 .farmacias {
   background: var(--color-sobre-primario);
   border-radius: 8px;

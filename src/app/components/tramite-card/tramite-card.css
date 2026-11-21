@@ -1,12 +1,12 @@
-:host { display: contents; }
+:host { display: block; }
 .tramite-card {
   position: relative;
   overflow: hidden;
   min-height: 205px;
   background: var(--color-sobre-primario);
   border: 1px solid var(--color-borde);
-  border-radius: 9px;
-  padding: 17px;
+  border-radius: 14px;
+  padding: 24px;
   box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
 
   display: flex;
@@ -122,7 +122,7 @@
   align-items: center;
   justify-content: space-between;
 
-  margin: 14px -17px -17px;
+  margin: 14px -24px -24px;
   padding: 11px 17px;
 
   background: var(--color-superficie-baja);
