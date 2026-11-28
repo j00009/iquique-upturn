@@ -1,0 +1,32 @@
+<section class="pagina pagina--ancha compra" aria-labelledby="compra-title">
+  @if (compra(); as c) {
+    <nav class="breadcrumb" aria-label="Ruta de navegación"><a [routerLink]="['/clientes', c.clienteId]">Ficha del cliente</a><span aria-hidden="true">/</span><span>Compra {{ c.id }}</span></nav>
+    <div class="page-heading"><div><p class="eyebrow">Compra {{ c.id }} · período {{ c.periodo }}</p><h1 id="compra-title">Detalle de compra</h1></div>
+      <span class="status status--{{ c.estado }}">{{ c.estado }}</span>
+    </div>
+
+    <section class="summary-grid" aria-label="Resumen de la compra">
+      <div><span>Total</span><strong>{{ clp(c.totalCLP) }}</strong></div>
+      <div><span>Pagado</span><strong>{{ clp(c.montoPagadoCLP) }}</strong></div>
+      <div><span>Saldo</span><strong>{{ clp(c.saldoCLP) }}</strong></div>
+    </section>
+
+    <section class="vehicle-section" aria-labelledby="vehicles-title"><h2 id="vehicles-title">Vehículos</h2>
+      <div class="vehicle-list">@for (v of c.vehiculos; track v.vehiculoId) {
+        <article class="vehicle-card"><header><div><p class="eyebrow">Patente</p><h3>{{ v.patente }}</h3></div><strong>{{ clp(v.totalCLP) }}</strong></header>
+          <p>{{ v.marca || '' }} {{ v.modelo || v.tipo }} · {{ v.anio }}</p>
+          <dl><div><dt>Valor base</dt><dd>{{ clp(v.valorBaseCLP) }}</dd></div>
+            @for (cargo of v.cargosAplicados; track cargo.id) { <div><dt>{{ cargo.descripcion }}</dt><dd>{{ cargo.naturaleza === 'DESCUENTO' ? '- ' : '+ ' }}{{ clp(cargo.montoCLP) }}</dd></div> }
+            <div class="vehicle-total"><dt>Total</dt><dd>{{ clp(v.totalCLP) }}</dd></div></dl>
+        </article>
+      }</div>
+    </section>
+
+    <section class="installments" aria-labelledby="installments-title"><h2 id="installments-title">Cuotas</h2>
+      <div class="table-wrap"><table><thead><tr><th>Número</th><th>Monto</th><th>Estado</th><th>Fecha de pago</th></tr></thead>
+        <tbody>@for (cuota of c.cuotas; track cuota.numero) { <tr><td>{{ cuota.numero }}</td><td>{{ clp(cuota.montoCLP) }}</td><td><span class="cuota-status" [class.cuota-status--paid]="cuota.estado === 'PAGADA'">{{ cuota.estado }}</span></td><td>{{ cuota.fechaPago ? (cuota.fechaPago | date:'dd/MM/yyyy HH:mm') : 'Pendiente' }}</td></tr> }</tbody>
+      </table></div>
+    </section>
+  } @else if (cargado()) { <p class="aviso aviso--error" role="alert">No encontramos la compra solicitada.</p>
+  }
+</section>

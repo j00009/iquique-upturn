@@ -1,0 +1,31 @@
+<section class="pagina pagina--ancha detalle-cliente" aria-labelledby="detalle-title">
+  <nav class="breadcrumb" aria-label="Ruta de navegación"><a routerLink="/clientes">Clientes</a><span aria-hidden="true">/</span><span>Ficha</span></nav>
+  <div class="page-heading">
+    <div><p class="eyebrow">Ficha de cliente</p><h1 id="detalle-title">{{ cliente()?.nombre || 'Cliente' }}</h1></div>
+    <button class="boton boton--secundario" type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </div>
+  @if (cliente(); as ficha) {
+    <section class="ficha-card" aria-label="Datos del cliente">
+      <dl>
+        <div><dt>RUT</dt><dd>{{ ficha.rut }}</dd></div><div><dt>Correo</dt><dd>{{ ficha.correo || 'No informado' }}</dd></div>
+        <div><dt>Teléfono</dt><dd>{{ ficha.telefono || 'No informado' }}</dd></div><div><dt>Municipalidad</dt><dd>{{ ficha.municipalidad.nombre }}</dd></div>
+        <div><dt>Vehículos</dt><dd>{{ ficha.cantidadVehiculos }}</dd></div>
+      </dl>
+    </section>
+  }
+  <div class="vehicles-heading"><h2>Vehículos</h2><p class="pagina__intro">Selecciona vehículos sin compra activa para una cotización futura.</p></div>
+  @if (vehiculos().length) {
+    <div class="table-wrap"><table>
+      <caption class="sr-only">Vehículos registrados y estado del permiso</caption>
+      <thead><tr><th scope="col">Seleccionar</th><th scope="col">Patente</th><th scope="col">Vehículo</th><th scope="col">Año</th><th scope="col">Estado del permiso</th><th scope="col">Motivo</th></tr></thead>
+      <tbody>@for (vehiculo of vehiculos(); track vehiculo.id) {
+        <tr [class.row--disabled]="!puedeSeleccionar(vehiculo)">
+          <td><input type="checkbox" [id]="'vehiculo-' + vehiculo.id" [checked]="seleccionado(vehiculo.id)" [disabled]="!puedeSeleccionar(vehiculo)" (change)="cambiarSeleccion(vehiculo.id, $any($event.target).checked)" /><label class="sr-only" [for]="'vehiculo-' + vehiculo.id">Seleccionar {{ vehiculo.patente }}</label></td>
+          <td><strong>{{ vehiculo.patente }}</strong></td><td>{{ vehiculo.marca || '' }} {{ vehiculo.modelo || vehiculo.tipo }}</td><td>{{ vehiculo.anio }}</td>
+          <td><span class="estado-chip" [class]="'estado-chip estado-chip--' + vehiculo.estadoPermiso">{{ vehiculo.estadoPermiso }}</span></td><td>{{ motivo(vehiculo) }}</td>
+        </tr>
+      }</tbody>
+    </table></div>
+  } @else if (cargado()) { <p class="empty-state">Este cliente no tiene vehículos registrados.</p> }
+  <div class="detail-actions"><a class="boton boton--secundario" routerLink="/clientes">Volver a clientes</a><button class="boton" type="button" [disabled]="seleccionados().length === 0 || cotizando()" (click)="cotizar()">{{ cotizando() ? 'Cotizando…' : 'Cotizar' }}</button></div>
+</section>

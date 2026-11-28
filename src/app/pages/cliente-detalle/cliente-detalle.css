@@ -1,0 +1,26 @@
+.detalle-cliente { max-width:1200px; }
+.breadcrumb { display:flex; gap:.55rem; align-items:center; margin-bottom:1rem; color:var(--muted); font-size:var(--texto-sm); }
+.breadcrumb a { color:inherit; }
+.page-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:1rem; }
+.eyebrow { margin:0 0 .25rem; color:var(--vehicle); font-size:var(--texto-sm); font-weight:700; }
+.ficha-card { margin:1rem 0 2rem; padding:1.2rem; background:var(--white); border:1px solid var(--line); border-radius:var(--radio-lg); }
+.ficha-card dl { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1rem; margin:0; }
+.ficha-card dt { color:var(--muted); font-size:var(--texto-sm); font-weight:700; }
+.ficha-card dd { margin:.2rem 0 0; font-size:var(--texto-base); overflow-wrap:anywhere; }
+.vehicles-heading h2 { margin:0 0 .2rem; color:var(--ink); font-size:var(--texto-xl); }
+.vehicles-heading .pagina__intro { margin-bottom:.8rem; }
+.table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:var(--radio-lg); background:var(--white); }
+table { width:100%; border-collapse:collapse; min-width:760px; font-size:var(--texto-base); }
+th,td { padding:.8rem .7rem; border-bottom:1px solid var(--line); text-align:left; vertical-align:middle; }
+th { color:var(--ink); background:var(--app-band); font-size:var(--texto-sm); }
+tbody tr:last-child td { border-bottom:0; }
+input[type="checkbox"] { width:1.15rem; height:1.15rem; accent-color:var(--vehicle); }
+.row--disabled { color:var(--muted); background:var(--paper); }
+.estado-chip { display:inline-block; padding:.2rem .65rem; border-radius:999px; font-size:var(--texto-xs); font-weight:700; white-space:nowrap; }
+.estado-chip--pagado { color:#285A35; background:#E3F0E7; }
+.estado-chip--parcialmente_pagado { color:#704900; background:#F7EBD3; }
+.estado-chip--pendiente_de_pago { color:#8E2D1B; background:#F6E2DD; }
+.estado-chip--sin_permiso { color:#4B5563; background:#ECEEEA; }
+.detail-actions { display:flex; justify-content:space-between; gap:.75rem; margin-top:1.25rem; }
+.empty-state { padding:1.2rem; border:1px dashed var(--line); border-radius:var(--radio-md); color:var(--muted); }
+@media(max-width:600px) { .page-heading { flex-direction:column; } .detail-actions { flex-direction:column; } .detail-actions>* { text-align:center; } }

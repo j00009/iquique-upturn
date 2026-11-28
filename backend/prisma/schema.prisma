@@ -1,0 +1,261 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RolUsuario {
+  CLIENTE
+  FUNCIONARIO
+  ADMIN
+}
+
+enum EstadoCompra {
+  PENDIENTE_DE_PAGO
+  PARCIALMENTE_PAGADO
+  PAGADO
+  ANULADO
+}
+
+enum ModalidadPago {
+  TOTAL
+  DOS_CUOTAS
+}
+
+enum EstadoCuota {
+  PENDIENTE
+  PAGADA
+}
+
+enum NaturalezaCargo {
+  CARGO
+  DESCUENTO
+}
+
+enum TipoCargo {
+  MONTO_FIJO
+  PORCENTAJE
+}
+
+model Municipalidad {
+  id           Int              @id @default(autoincrement())
+  nombre       String           @unique @db.VarChar(120)
+  clientes     Cliente[]
+  vehiculos    Vehiculo[]
+  compras      Compra[]
+  usuarios     Usuario[]
+  tarifas      TarifaPermiso[]
+  cargos       CargoAdicional[]
+  cotizaciones Cotizacion[]
+}
+
+model Cliente {
+  id              Int           @id @default(autoincrement())
+  rut             String        @unique @db.VarChar(12)
+  nombre          String        @db.VarChar(160)
+  correo          String?       @db.VarChar(254)
+  telefono        String?       @db.VarChar(30)
+  municipalidadId Int
+  municipalidad   Municipalidad @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+  vehiculos       Vehiculo[]
+  compras         Compra[]
+  usuario         Usuario?
+  cotizaciones    Cotizacion[]
+
+  @@index([municipalidadId])
+}
+
+model Vehiculo {
+  id              Int                     @id @default(autoincrement())
+  patente         String                  @unique @db.VarChar(6)
+  tipo            String                  @db.VarChar(40)
+  marca           String?                 @db.VarChar(80)
+  modelo          String?                 @db.VarChar(80)
+  anio            Int
+  clienteId       Int
+  municipalidadId Int
+  cliente         Cliente                 @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  municipalidad   Municipalidad           @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+  detallesCompra  DetalleCompraVehiculo[]
+  cotizaciones    CotizacionVehiculo[]
+
+  @@index([clienteId])
+  @@index([municipalidadId])
+}
+
+model Usuario {
+  id                  Int            @id @default(autoincrement())
+  correo              String         @unique @db.VarChar(254)
+  hashContrasena      String         @db.VarChar(255)
+  rol                 RolUsuario
+  clienteId           Int?           @unique
+  municipalidadId     Int?
+  cliente             Cliente?       @relation(fields: [clienteId], references: [id], onDelete: SetNull)
+  municipalidad       Municipalidad? @relation(fields: [municipalidadId], references: [id], onDelete: SetNull)
+  comprasCreadas      Compra[]
+  cotizacionesCreadas Cotizacion[]
+  pagosRegistrados    Pago[]
+
+  @@index([municipalidadId])
+}
+
+model Compra {
+  id              Int                     @id @default(autoincrement())
+  clienteId       Int
+  municipalidadId Int
+  periodo         Int
+  modalidad       ModalidadPago
+  estado          EstadoCompra            @default(PENDIENTE_DE_PAGO)
+  totalCLP        Int
+  montoPagadoCLP  Int                     @default(0)
+  creadaPorId     Int
+  idempotencyKey  String?                 @db.VarChar(128)
+  creadaEn        DateTime                @default(now())
+  actualizadaEn   DateTime                @updatedAt
+  cliente         Cliente                 @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  municipalidad   Municipalidad           @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+  creadaPor       Usuario                 @relation(fields: [creadaPorId], references: [id], onDelete: Restrict)
+  detalles        DetalleCompraVehiculo[]
+  cuotas          Cuota[]
+  pagos           Pago[]
+
+  @@unique([creadaPorId, idempotencyKey])
+  @@index([clienteId])
+  @@index([municipalidadId, periodo])
+}
+
+model DetalleCompraVehiculo {
+  id                 Int             @id @default(autoincrement())
+  compraId           Int
+  vehiculoId         Int
+  periodo            Int
+  valorBaseCLP       Int
+  totalCargosCLP     Int
+  totalDescuentosCLP Int
+  totalCLP           Int
+  activo             Boolean         @default(true)
+  compra             Compra          @relation(fields: [compraId], references: [id], onDelete: Cascade)
+  vehiculo           Vehiculo        @relation(fields: [vehiculoId], references: [id], onDelete: Restrict)
+  cargosAplicados    CargoAplicado[]
+
+  @@unique([compraId, vehiculoId])
+  @@index([vehiculoId, periodo])
+  @@index([compraId])
+}
+
+model Cotizacion {
+  id              Int                  @id @default(autoincrement())
+  clienteId       Int
+  municipalidadId Int
+  periodo         Int
+  creadaPorId     Int
+  creadaEn        DateTime             @default(now())
+  expiraEn        DateTime
+  usada           Boolean              @default(false)
+  cliente         Cliente              @relation(fields: [clienteId], references: [id], onDelete: Restrict)
+  municipalidad   Municipalidad        @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+  creadaPor       Usuario              @relation(fields: [creadaPorId], references: [id], onDelete: Restrict)
+  vehiculos       CotizacionVehiculo[]
+
+  @@index([clienteId, periodo])
+  @@index([creadaPorId, creadaEn])
+  @@index([expiraEn, usada])
+}
+
+model CotizacionVehiculo {
+  id                 Int        @id @default(autoincrement())
+  cotizacionId       Int
+  vehiculoId         Int
+  patente            String     @db.VarChar(6)
+  tipo               String     @db.VarChar(40)
+  marca              String?    @db.VarChar(80)
+  modelo             String?    @db.VarChar(80)
+  anio               Int
+  valorBaseCLP       Int
+  totalCargosCLP     Int
+  totalDescuentosCLP Int
+  totalCLP           Int
+  cargos             Json
+  descuentos         Json
+  cotizacion         Cotizacion @relation(fields: [cotizacionId], references: [id], onDelete: Cascade)
+  vehiculo           Vehiculo   @relation(fields: [vehiculoId], references: [id], onDelete: Restrict)
+
+  @@unique([cotizacionId, vehiculoId])
+  @@index([vehiculoId])
+}
+
+model TarifaPermiso {
+  id              Int           @id @default(autoincrement())
+  municipalidadId Int
+  periodo         Int
+  categoria       String        @db.VarChar(40)
+  valorBaseCLP    Int
+  activo          Boolean       @default(true)
+  municipalidad   Municipalidad @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+
+  @@unique([municipalidadId, periodo, categoria])
+  @@index([municipalidadId, periodo])
+}
+
+model CargoAdicional {
+  id              Int             @id @default(autoincrement())
+  municipalidadId Int
+  descripcion     String          @db.VarChar(200)
+  naturaleza      NaturalezaCargo
+  tipo            TipoCargo
+  valor           Int
+  vigenciaDesde   DateTime        @db.Date
+  vigenciaHasta   DateTime        @db.Date
+  activo          Boolean         @default(true)
+  municipalidad   Municipalidad   @relation(fields: [municipalidadId], references: [id], onDelete: Restrict)
+
+  @@index([municipalidadId, activo, vigenciaDesde, vigenciaHasta], map: "cargo_adicional_municipalidad_vigencia_idx")
+}
+
+model CargoAplicado {
+  id                      Int                   @id @default(autoincrement())
+  detalleCompraVehiculoId Int
+  descripcion             String                @db.VarChar(200)
+  naturaleza              NaturalezaCargo
+  tipo                    TipoCargo
+  valor                   Int
+  montoCLP                Int
+  detalleCompraVehiculo   DetalleCompraVehiculo @relation(fields: [detalleCompraVehiculoId], references: [id], onDelete: Cascade)
+
+  @@index([detalleCompraVehiculoId])
+}
+
+model Cuota {
+  id               Int         @id @default(autoincrement())
+  compraId         Int
+  numero           Int
+  montoCLP         Int
+  estado           EstadoCuota @default(PENDIENTE)
+  fechaPago        DateTime?
+  fechaVencimiento DateTime?
+  compra           Compra      @relation(fields: [compraId], references: [id], onDelete: Cascade)
+  pago             Pago?
+
+  @@unique([compraId, numero])
+  @@index([compraId])
+}
+
+model Pago {
+  id              Int      @id @default(autoincrement())
+  compraId        Int
+  cuotaId         Int      @unique
+  montoCLP        Int
+  fechaPago       DateTime @default(now())
+  folio           String   @unique @db.VarChar(24)
+  idempotencyKey  String   @unique @db.VarChar(128)
+  registradoPorId Int
+  compra          Compra   @relation(fields: [compraId], references: [id], onDelete: Restrict)
+  cuota           Cuota    @relation(fields: [cuotaId], references: [id], onDelete: Restrict)
+  registradoPor   Usuario  @relation(fields: [registradoPorId], references: [id], onDelete: Restrict)
+
+  @@index([compraId, fechaPago])
+  @@index([registradoPorId])
+}

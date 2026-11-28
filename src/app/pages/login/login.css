@@ -1,0 +1,9 @@
+.login-page { max-width: 100%; min-height: 65vh; display:grid; place-items:center; }
+.login-card { width:min(100%, 32rem); padding:clamp(1.25rem, 4vw, 2rem); background:var(--white); border:1px solid var(--line); border-radius:var(--radio-lg); box-shadow:0 12px 32px #1A233014; }
+.login-card h1 { margin-bottom:.25rem; }
+.login-card__eyebrow { margin:0 0 .35rem; color:var(--vehicle); font-weight:700; font-size:var(--texto-sm); }
+.campo { display:grid; gap:.4rem; margin:1rem 0 1.25rem; }
+.campo label { font-weight:700; font-size:var(--texto-base); }
+.campo input { min-height:3rem; width:100%; padding:.65rem .8rem; border:1px solid var(--field); border-radius:var(--radio-md); background:var(--paper); color:var(--ink); font:inherit; font-size:var(--texto-base); }
+.campo input[aria-invalid="true"] { border-color:var(--safety); }
+.login-submit { width:100%; margin-top:.25rem; }

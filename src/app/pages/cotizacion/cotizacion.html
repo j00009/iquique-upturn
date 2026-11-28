@@ -1,0 +1,48 @@
+<section class="pagina pagina--ancha cotizacion" aria-labelledby="cotizacion-title">
+  @if (cotizacion(); as c) {
+    <nav class="breadcrumb" aria-label="Ruta de navegación"><a [routerLink]="['/clientes', c.clienteId]">Ficha del cliente</a><span aria-hidden="true">/</span><span>Cotización</span></nav>
+    <div class="page-heading"><div><p class="eyebrow">Cotización {{ c.id }} · período {{ c.periodo }}</p><h1 id="cotizacion-title">Resumen de cotización</h1></div>
+      <div class="expiry" [class.expiry--expired]="vencida()"><span>Expira en</span><strong>{{ faltan() }}</strong></div>
+    </div>
+
+    @if (vencida()) {
+      <div class="aviso aviso--error" role="alert"><strong>La cotización venció.</strong> Solicita una nueva cotización para continuar.</div>
+      <button type="button" class="boton" (click)="volverACotizar()">Volver a cotizar</button>
+    }
+
+    <div class="vehicle-list">
+      @for (v of c.vehiculos; track v.vehiculoId) {
+        <article class="vehicle-card">
+          <header><div><p class="eyebrow">Vehículo</p><h2>{{ v.patente }}</h2></div><strong class="vehicle-total">{{ clp(v.totalCLP) }}</strong></header>
+          <p class="vehicle-data">{{ v.marca || '' }} {{ v.modelo || v.tipo }} · {{ v.anio }}</p>
+          <dl class="breakdown">
+            <div><dt>Valor base</dt><dd>{{ clp(v.valorBaseCLP) }}</dd></div>
+            @for (cargo of v.cargos; track $index) { <div><dt>{{ cargo.descripcion }}</dt><dd>+ {{ clp(cargo.montoCLP) }}</dd></div> }
+            @for (descuento of v.descuentos; track $index) { <div><dt>{{ descuento.descripcion }}</dt><dd>- {{ clp(descuento.montoCLP) }}</dd></div> }
+            <div class="breakdown-total"><dt>Total del vehículo</dt><dd>{{ clp(v.totalCLP) }}</dd></div>
+          </dl>
+        </article>
+      }
+    </div>
+
+    <aside class="total-card" aria-label="Total consolidado"><span>Total consolidado</span><strong>{{ clp(c.totalCLP) }}</strong></aside>
+
+    <section class="payment-options" aria-labelledby="payment-title">
+      <h2 id="payment-title">Modalidad de pago</h2>
+      <div class="option-grid">
+        <label class="option" [class.option--selected]="modalidad() === 'TOTAL'">
+          <input type="radio" name="modalidad" value="TOTAL" [checked]="modalidad() === 'TOTAL'" (change)="seleccionarModalidad('TOTAL')" />
+          <span><strong>Pago completo</strong><small>1 cuota de {{ clp(c.totalCLP) }}</small></span>
+        </label>
+        <label class="option" [class.option--selected]="modalidad() === 'DOS_CUOTAS'">
+          <input type="radio" name="modalidad" value="DOS_CUOTAS" [checked]="modalidad() === 'DOS_CUOTAS'" (change)="seleccionarModalidad('DOS_CUOTAS')" />
+          <span><strong>Dos cuotas</strong><small>Primera: {{ clp(primeraCuota()) }} · Segunda: {{ clp(segundaCuota()) }}</small></span>
+        </label>
+      </div>
+    </section>
+
+    <div class="actions"><a class="boton boton--secundario" [routerLink]="['/clientes', c.clienteId]">Volver</a>
+      <button type="button" class="boton" [disabled]="confirmando() || vencida() || loading.cargando() > 0" (click)="confirmar()">{{ confirmando() ? 'Confirmando…' : 'Confirmar compra' }}</button>
+    </div>
+  }
+</section>

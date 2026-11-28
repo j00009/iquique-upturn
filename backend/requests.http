@@ -1,0 +1,156 @@
+@baseUrl = http://localhost:3000
+@clienteId = 1
+@otroClienteId = 2
+@iquiqueId = 1
+
+### Ping público
+GET {{baseUrl}}/ping
+
+### Login ADMIN
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "correo": "admin@muni.cl",
+  "password": "Demo-2026-Cambiar"
+}
+
+### Login CLIENTE
+# @name loginCliente
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "correo": "cliente@muni.cl",
+  "password": "Demo-2026-Cambiar"
+}
+
+### Identidad del ADMIN
+GET {{baseUrl}}/auth/me
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Búsqueda por RUT con formato (ADMIN)
+GET {{baseUrl}}/clientes?q=12.345.678-5&page=1&limit=10
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Búsqueda por RUT sin formato (ADMIN)
+GET {{baseUrl}}/clientes?q=123456785&page=1&limit=10
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Búsqueda por nombre parcial (ADMIN)
+GET {{baseUrl}}/clientes?q=González&page=1&limit=10
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Búsqueda sin resultados (ADMIN)
+GET {{baseUrl}}/clientes?q=NoExiste999&page=1&limit=10
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Ficha de cliente (ADMIN)
+GET {{baseUrl}}/clientes/{{clienteId}}
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### Vehículos y estado del permiso (ADMIN)
+GET {{baseUrl}}/clientes/{{clienteId}}/vehiculos?periodo=2026
+Authorization: Bearer {{loginAdmin.response.body.token}}
+
+### El CLIENTE ve su ficha
+GET {{baseUrl}}/clientes/{{clienteId}}
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### El CLIENTE ve sus vehículos
+GET {{baseUrl}}/clientes/{{clienteId}}/vehiculos?periodo=2026
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### Acceso denegado: el CLIENTE intenta ver otro cliente (espera 403)
+GET {{baseUrl}}/clientes/{{otroClienteId}}
+Authorization: Bearer {{loginCliente.response.body.token}}
+
+### Ruta protegida sin token (espera 401)
+GET {{baseUrl}}/clientes/{{clienteId}}
+
+### Crear tarifa para camioneta (ADMIN)
+# @name crearTarifaNueva
+POST {{baseUrl}}/tarifas
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "municipalidadId": {{iquiqueId}},
+  "periodo": 2026,
+  "categoria": "camioneta",
+  "valorBaseCLP": 99000
+}
+
+### Editar tarifa recién creada
+PUT {{baseUrl}}/tarifas/{{crearTarifaNueva.response.body.id}}
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "municipalidadId": {{iquiqueId}},
+  "periodo": 2026,
+  "categoria": "camioneta",
+  "valorBaseCLP": 101000,
+  "activo": true
+}
+
+### Crear cargo fijo (ADMIN)
+# @name crearCargo
+POST {{baseUrl}}/cargos
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "municipalidadId": {{iquiqueId}},
+  "descripcion": "Cargo manual de prueba",
+  "naturaleza": "CARGO",
+  "tipo": "MONTO_FIJO",
+  "valor": 2500,
+  "vigenciaDesde": "2026-01-01",
+  "vigenciaHasta": "2026-12-31"
+}
+
+### Desactivar cargo recién creado (borrado lógico)
+PATCH {{baseUrl}}/cargos/{{crearCargo.response.body.id}}/estado
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "activo": false
+}
+
+### Duplicar tarifa sembrada auto/Iquique/2026 (espera 409)
+POST {{baseUrl}}/tarifas
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "municipalidadId": {{iquiqueId}},
+  "periodo": 2026,
+  "categoria": "auto",
+  "valorBaseCLP": 99999
+}
+
+### CLIENTE no puede administrar tarifas (espera 403)
+POST {{baseUrl}}/tarifas
+Authorization: Bearer {{loginCliente.response.body.token}}
+Content-Type: application/json
+
+{
+  "municipalidadId": {{iquiqueId}},
+  "periodo": 2026,
+  "categoria": "camioneta",
+  "valorBaseCLP": 99000
+}
+
+### Vista previa de María con sus dos primeros vehículos
+POST {{baseUrl}}/tarifas/calcular
+Authorization: Bearer {{loginAdmin.response.body.token}}
+Content-Type: application/json
+
+{
+  "clienteId": {{clienteId}},
+  "vehiculoIds": [1, 2],
+  "periodo": 2026
+}

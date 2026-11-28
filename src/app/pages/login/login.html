@@ -1,0 +1,31 @@
+<section class="pagina login-page" aria-labelledby="login-title">
+  <div class="login-card">
+    <p class="login-card__eyebrow">Servicios municipales</p>
+    <h1 id="login-title">Iniciar sesión</h1>
+    <p class="pagina__intro">Ingresa con tu cuenta para consultar clientes y vehículos.</p>
+
+    @if (mensajeError()) {
+      <p class="aviso aviso--error" role="alert">{{ mensajeError() }}</p>
+    }
+
+    <form [formGroup]="form" (ngSubmit)="enviar()" novalidate>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input id="correo" type="email" autocomplete="username" formControlName="correo" [attr.aria-invalid]="form.controls.correo.touched && form.controls.correo.invalid" />
+        @if (form.controls.correo.touched && form.controls.correo.invalid) {
+          <p class="campo__error" id="correo-error">Ingresa un correo válido.</p>
+        }
+      </div>
+      <div class="campo">
+        <label for="password">Contraseña</label>
+        <input id="password" type="password" autocomplete="current-password" formControlName="password" [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid" />
+        @if (form.controls.password.touched && form.controls.password.invalid) {
+          <p class="campo__error">La contraseña es obligatoria.</p>
+        }
+      </div>
+      <button class="boton login-submit" type="submit" [disabled]="form.invalid || loading.cargando() > 0">
+        Iniciar sesión
+      </button>
+    </form>
+  </div>
+</section>
